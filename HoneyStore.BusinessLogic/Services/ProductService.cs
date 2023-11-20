@@ -52,8 +52,12 @@ namespace HoneyStore.BusinessLogic.Services
             return productDtos;
         }
 
-        public async Task AddProductAsync(ProductDto product)
+        public async Task AddProductAsync(ProductDto product, ProductPhotoDto photo)
         {
+            var photoEntity = _mapper.Map<ProductPhotoDto, ProductPhoto>(photo);
+            await _uow.Photos.AddAsync(photoEntity);
+
+            product.ProductPhoto = photo;
             var productEntity = _mapper.Map<ProductDto, Product>(product);
             await _uow.Products.AddAsync(productEntity);
             await _uow.SaveAsync();
@@ -73,6 +77,7 @@ namespace HoneyStore.BusinessLogic.Services
 
             await _uow.SaveAsync();
 
+            photo.Id = photoEntity.Id;
             product.Id = productEntity.Id;
         }
 

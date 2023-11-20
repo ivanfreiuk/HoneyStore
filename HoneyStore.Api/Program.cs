@@ -25,7 +25,10 @@ services.AddSwaggerGen();
 
 #region Add CORS
 
-services.AddCors();
+services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 
 #endregion
 
@@ -100,6 +103,10 @@ services.AddAutoMapper(typeof(ProductProfile).Assembly);
 
 #endregion
 
+var sp = services.BuildServiceProvider();
+
+await CreateUsers(sp);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -115,11 +122,7 @@ else
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// global cors policy
-app.UseCors(x => x
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
+app.UseCors("corsapp");
 
 app.UseHttpsRedirection();
 
@@ -136,3 +139,65 @@ app.UseStaticFiles(new StaticFileOptions()
 app.MapControllers();
 
 app.Run();
+
+async Task CreateUsers(IServiceProvider serviceProvider)
+{
+    //initializing custom roles   
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
+    var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+    string[] roleNames = { "Admin", "User", "Manager" };
+    IdentityResult roleResult;
+
+    foreach (var roleName in roleNames)
+    {
+        var roleExist = await roleManager.RoleExistsAsync(roleName);
+        if (!roleExist)
+        {
+            //create the roles and seed them to the database: Question 1  
+            roleResult = await roleManager.CreateAsync(new Role
+            {
+                Name = roleName
+            });
+        }
+    }
+
+    var user = await userManager.FindByEmailAsync("admin@gmail.com");
+
+    if (user == null)
+    {
+        user = new User
+        {
+            UserName = "admin@gmail.com",
+            Email = "admin@gmail.com",
+        };
+        await userManager.CreateAsync(user, "Qwerty11");
+    }
+    await userManager.AddToRoleAsync(user, "Admin");
+
+
+    var user1 = await userManager.FindByEmailAsync("manager@gmail.com");
+
+    if (user1 == null)
+    {
+        user1 = new User
+        {
+            UserName = "manager@gmail.com",
+            Email = "manager@gmail.com",
+        };
+        await userManager.CreateAsync(user1, "Qwerty11");
+    }
+    await userManager.AddToRoleAsync(user1, "Manager");
+
+    var user2 = await userManager.FindByEmailAsync("user@gmail.com");
+
+    if (user2 == null)
+    {
+        user2 = new User
+        {
+            UserName = "user@gmail.com",
+            Email = "user@gmail.com",
+        };
+        await userManager.CreateAsync(user2, "Qwerty11");
+    }
+    await userManager.AddToRoleAsync(user2, "User");
+}

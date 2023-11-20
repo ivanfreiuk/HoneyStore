@@ -8,6 +8,7 @@ namespace HoneyStore.DataAccess.UnitOfWork
     {
         IUserRepository Users { get; }
         IProductRepository Products { get; }
+        IProductPhotoRepository Photos { get; }
         IProducerRepository Producers { get; }
         ICommentRepository Comments { get; }
         ICategoryRepository Categories { get; }

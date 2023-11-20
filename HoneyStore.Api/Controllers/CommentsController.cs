@@ -84,7 +84,20 @@ namespace HoneyStore.Api.Controllers
         public async Task<IActionResult> GetCommentsByProductId(int id)
         {
             var comments = await _commentService.GetCommentsByProductIdAsync(id);
-
+            comments = new List<CommentDto>
+            {
+                new CommentDto
+                {
+                    Id = 1,
+                    Content = "good honey!",
+                    CreatedOn = DateTime.Now,
+                    Headline = "remove headline",
+                    Mark = 3,
+                    ProductId = 1,
+                    UserId = 1,
+                    UserName = "Ivan Freiuk"
+                }
+            };
             if (comments == null)
             {
                 return NoContent();

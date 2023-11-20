@@ -1,0 +1,28 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+      <div *ngFor="let comment of comments">
+        <mat-divider></mat-divider>
+        <div class="clearfix">
+          <div class="float-left">
+            <h3>{{comment?.headline}}</h3>
+          </div>
+          <div class="float-right">
+            <!-- <star-rating [value]="comment?.mark" checkedcolor="#f70" uncheckedcolor="#ddd" size="30px" readonly="true"></star-rating> -->
+  
+          </div>
+        </div>
+        <div class="clearfix">
+          <div class="float-left">
+            <strong>{{comment?.userName}}</strong> <br>
+            <span>Оаубліковано : {{comment?.createdOn | date:'dd.MM.yyyy HH:mm'}}</span>
+          </div>
+          <div *ngIf="userCanDelete(comment.userId)" class="float-right">
+            <button (click)="delete(comment.id)"mat-stroked-button matTooltip="Delete comment" color="primary">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+        <p>{{comment?.content}}</p>
+      </div>
+    </div>
+  </div>

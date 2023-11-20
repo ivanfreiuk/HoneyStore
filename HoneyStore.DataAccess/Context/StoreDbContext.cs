@@ -9,6 +9,8 @@ namespace HoneyStore.DataAccess.Context
     {
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<ProductPhoto> ProductPhotos { get; set; }
+
         public DbSet<Producer> Producers { get; set; }
 
         public DbSet<Comment> Comments { get; set; }

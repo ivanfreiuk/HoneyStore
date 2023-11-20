@@ -8,6 +8,7 @@ namespace HoneyStore.DataAccess.UnitOfWork
     {
         private IUserRepository _userRepository;
         private IProductRepository _productRepository;
+        private IProductPhotoRepository _productPhotoRepository;
         private IProducerRepository _producersRepository;
         private ICategoryRepository _categoryRepository;
         private ICommentRepository _commentRepository;
@@ -24,21 +25,23 @@ namespace HoneyStore.DataAccess.UnitOfWork
             disposed = false;
         }
 
-        public IUserRepository Users => _userRepository ?? (_userRepository = new UserRepository(_context));
+        public IUserRepository Users => _userRepository ??= new UserRepository(_context);
 
-        public IProductRepository Products => _productRepository ?? (_productRepository = new ProductRepository(_context));
-        
-        public IProducerRepository Producers => _producersRepository ?? (_producersRepository = new ProducerRepository(_context));
+        public IProductRepository Products => _productRepository ??= new ProductRepository(_context);
 
-        public ICommentRepository Comments => _commentRepository ?? (_commentRepository = new CommentRepository(_context));
+        public IProductPhotoRepository Photos => _productPhotoRepository ??= new ProductPhotoRepository(_context);
 
-        public ICategoryRepository Categories => _categoryRepository ?? (_categoryRepository = new CategoryRepository(_context));
+        public IProducerRepository Producers => _producersRepository ??= new ProducerRepository(_context);
 
-        public IWishRepository Wishes => _wishRepository ?? (_wishRepository = new WishRepository(_context));
+        public ICommentRepository Comments => _commentRepository ??= new CommentRepository(_context);
 
-        public IOrderRepository Orders => _orderRepository ?? (_orderRepository = new OrderRepository(_context));
+        public ICategoryRepository Categories => _categoryRepository ??= new CategoryRepository(_context);
 
-        public ICartItemRepository CartItems => _cartItemRepository ?? (_cartItemRepository = new CartItemRepository(_context));
+        public IWishRepository Wishes => _wishRepository ??= new WishRepository(_context);
+
+        public IOrderRepository Orders => _orderRepository ??= new OrderRepository(_context);
+
+        public ICartItemRepository CartItems => _cartItemRepository ??= new CartItemRepository(_context);
 
         public async Task<int> SaveAsync()
         {

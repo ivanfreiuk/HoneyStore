@@ -1,0 +1,128 @@
+<div class="bootstrap-wrapper">
+    <div class="details-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img [src]="imageURL" [alt]="currentProduct.name">
+                </div>
+                <div class="col-md-6">
+                    <div class="page-name">
+                        <h1><strong>{{currentProduct.name}}</strong></h1>
+                    </div>
+                    <div *ngIf="currentProduct.mark" class="rating">
+                        <!-- <star-rating value="{{currentProduct?.mark}}" checkedcolor="#f70" uncheckedcolor="#ddd" size="30px"
+                readonly="true"></star-rating> -->
+                    </div>
+                    <mat-card class="card-offer">
+                        <mat-card-content>
+                            <div class="product-price">
+                                <h3>Ціна: {{currentProduct.price}}$</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="bk-action-qty">
+                                        <app-counter (counterValue)="onQuantityChanged($event)"></app-counter>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 bk-add-to-card">
+                                    <button mat-raised-button color="primary" (click)="addToCart(currentProduct.id)">
+                                        <mat-icon>add_shopping_cart</mat-icon> Додати в корзину
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row separator">
+                                <mat-divider inset="true"></mat-divider>
+                            </div>
+                            <div class="row adtn-actions">
+                                <div class="col-md-6">
+                                    <button mat-button>
+                                        <mat-icon>favorite</mat-icon> Зберегти
+                                    </button>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <button mat-button>
+                                        <mat-icon>email</mat-icon> З'явилися запитання?
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row separator">
+                                <mat-divider inset="true"></mat-divider>
+                            </div>
+
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-tab-group class="tabs">
+                        <mat-tab class="tab-content">
+                            <ng-template mat-tab-label>
+                                <strong class="tab-name">Опис</strong>
+                            </ng-template>
+                            <div>
+                                <p>{{currentProduct.description}}</p>
+                            </div>
+                        </mat-tab>
+                        <mat-tab class="tab-content">
+                            <ng-template mat-tab-label>
+                                <strong class="tab-name">Характеристики</strong>
+                            </ng-template>
+                            <h1>All details</h1>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Author</strong></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{currentProduct.producer.name}}></p>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p><strong>Category</strong></p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p><span *ngFor="let category of currentProduct?.categories">{{category.name}}
+                                            </span></p>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p><strong>Language</strong></p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p>{{currentProduct.name}}</p>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p><strong>Page size</strong></p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p>{{currentProduct.name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                        <mat-tab class="tab-content">
+                            <ng-template mat-tab-label>
+                                <strong class="tab-name" [matBadge]="productComments.length" matBadgeColor="accent"
+                                    matBadgeOverlap="false">Відгуки</strong>
+                            </ng-template>
+                            <div class="review-action">
+                                <!-- <app-add-comment [productId]="currentProduct?.id" (commentAdded)="onCommentsChanged($event)"></app-add-comment> -->
+                                <app-comment [comments]="productComments" (commentDeleted)="onCommentsChanged($event)">
+                                </app-comment>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

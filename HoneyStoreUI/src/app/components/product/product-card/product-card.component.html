@@ -1,0 +1,44 @@
+<div class="bootstrap-wrapper">
+    <mat-card class="card-container">
+      <mat-card-header>
+        <mat-card-title>{{product.name}}</mat-card-title>
+        <mat-card-subtitle>        
+            <span *ngFor="let category of product.categories">{{category.name}}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <div class="picture-block">
+        <img mat-card-image [src]="imageURL" [alt]="product.name">    
+      </div>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="product-price">
+          <p><strong>Ціна : </strong>{{product.price}}</p>
+        </div>
+        <div class="product-producer">
+            <p><strong>Виробник : </strong>{{product.producer.name}}</p>
+        </div>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <button mat-raised-button color="primary" (click)="addToCart(product.id)">
+                <mat-icon>add_shopping_cart</mat-icon>
+              </button>
+            </div>
+            <div class="col-4">
+              <button mat-button>
+                <mat-icon>favorite_border</mat-icon>
+              </button>
+            </div>
+            <div class="col-4">
+              <button (click)="showDetail(product.id)" mat-button>
+                <mat-icon>crop_free</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>

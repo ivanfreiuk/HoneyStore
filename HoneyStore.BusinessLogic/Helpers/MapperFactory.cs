@@ -21,6 +21,7 @@ namespace HoneyStore.BusinessLogic.Helpers
         {
            var config = new MapperConfiguration(cfg =>
             {
+                cfg.AddProfile<ProductPhotoProfile>();
                 cfg.AddProfile<ProducerProfile>();
                 cfg.AddProfile<CategoryProfile>();
                 cfg.AddProfile<WishProfile>();

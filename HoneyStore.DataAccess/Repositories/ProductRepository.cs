@@ -16,6 +16,7 @@ namespace HoneyStore.DataAccess.Repositories
         {
             return await _context.Products
                 .Include(p => p.Producer)
+                .Include(p => p.ProductPhoto)
                 .Include(p => p.ProductCategories)
                 .ThenInclude(c => c.Category)
                 .Include(p => p.Comments)
@@ -26,6 +27,7 @@ namespace HoneyStore.DataAccess.Repositories
         {
             return await _context.Products
                 .Include(p => p.Producer)
+                .Include(p => p.ProductPhoto)
                 .Include(p => p.ProductCategories)
                 .ThenInclude(c => c.Category)
                 .Include(p => p.Comments)
@@ -35,6 +37,8 @@ namespace HoneyStore.DataAccess.Repositories
         public async Task<ICollection<Product>> GetProductsByCategoryIdAsync(int categoryId)
         {
             return await _context.Products
+                .Include(p => p.Producer)
+                .Include(p => p.ProductPhoto)
                 .Include(p => p.ProductCategories)
                 .ThenInclude(c => c.Category)
                 .Where(p => p.ProductCategories.Any(bc => bc.CategoryId == categoryId && bc.ProductId == p.Id))
@@ -44,6 +48,7 @@ namespace HoneyStore.DataAccess.Repositories
         public async Task<ICollection<Product>> GetProductsByNameAsync(string name)
         {
             return await _context.Products
+                .Include(p => p.ProductPhoto)
                 .Include(p => p.Producer)
                 .Include(p => p.ProductCategories)
                 .ThenInclude(c => c.Category)
