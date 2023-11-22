@@ -19,5 +19,16 @@ namespace HoneyStore.DataAccess.Repositories
                 .Select(ur => _context.Roles.Single(r => r.Id == ur.RoleId))
                 .ToListAsync();
         }
+
+        public override async Task UpdateAsync(int id, User user)
+        {
+            var userFromDb = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
+
+            userFromDb.FirstName = user.FirstName;
+            userFromDb.LastName = user.LastName;
+            userFromDb.Email = user.Email;
+
+            _context.Users.Update(userFromDb);
+        }
     }
 }

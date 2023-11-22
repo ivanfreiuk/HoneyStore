@@ -1,6 +1,4 @@
-﻿using HoneyStore.DataAccess.Entities;
-
-namespace HoneyStore.BusinessLogic.Models
+﻿namespace HoneyStore.BusinessLogic.Models
 {
     public class ProductDto
     {
@@ -25,11 +23,13 @@ namespace HoneyStore.BusinessLogic.Models
         public ProducerDto Producer { get; set; }
 
         public int? ProductPhotoId { get; set; }
-
+        
         public ProductPhotoDto ProductPhoto { get; set; }
+        
+        public int? CategoryId { get; set; }
+
+        public CategoryDto Category { get; set; }
 
         public ICollection<CommentDto> Comments { get; set; }
-
-        public ICollection<CategoryDto> Categories { get; set; }
     }
 }

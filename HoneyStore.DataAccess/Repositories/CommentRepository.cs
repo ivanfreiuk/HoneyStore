@@ -48,5 +48,15 @@ namespace HoneyStore.DataAccess.Repositories
 
             return 0;
         }
+
+        public override async Task UpdateAsync(int id, Comment comment)
+        {
+            var commentFromDb = await _context.Comments.FirstOrDefaultAsync(p => p.Id == id);
+
+            commentFromDb.Mark = comment.Mark;
+            commentFromDb.Content = comment.Content;
+
+            _context.Comments.Update(commentFromDb);
+        }
     }
 }

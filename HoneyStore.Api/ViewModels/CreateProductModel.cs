@@ -1,6 +1,6 @@
 ﻿namespace HoneyStore.Api.ViewModels
 {
-    public class CreateBookModel
+    public class CreateProductModel
     {
         public string ImageUrl { get; set; }
 

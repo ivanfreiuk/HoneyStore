@@ -17,8 +17,7 @@ namespace HoneyStore.DataAccess.Repositories
             return await _context.Products
                 .Include(p => p.Producer)
                 .Include(p => p.ProductPhoto)
-                .Include(p => p.ProductCategories)
-                .ThenInclude(c => c.Category)
+                .Include(c => c.Category)
                 .Include(p => p.Comments)
                 .FirstOrDefaultAsync(i => i.Id == id);
         }
@@ -28,8 +27,7 @@ namespace HoneyStore.DataAccess.Repositories
             return await _context.Products
                 .Include(p => p.Producer)
                 .Include(p => p.ProductPhoto)
-                .Include(p => p.ProductCategories)
-                .ThenInclude(c => c.Category)
+                .Include(c => c.Category)
                 .Include(p => p.Comments)
                 .ToListAsync();
         }
@@ -39,9 +37,8 @@ namespace HoneyStore.DataAccess.Repositories
             return await _context.Products
                 .Include(p => p.Producer)
                 .Include(p => p.ProductPhoto)
-                .Include(p => p.ProductCategories)
-                .ThenInclude(c => c.Category)
-                .Where(p => p.ProductCategories.Any(bc => bc.CategoryId == categoryId && bc.ProductId == p.Id))
+                .Include(c => c.Category)
+                .Where(p => p.CategoryId == categoryId)
                 .ToListAsync();
         }
 
@@ -50,16 +47,15 @@ namespace HoneyStore.DataAccess.Repositories
             return await _context.Products
                 .Include(p => p.ProductPhoto)
                 .Include(p => p.Producer)
-                .Include(p => p.ProductCategories)
-                .ThenInclude(c => c.Category)
+                .Include(c => c.Category)
                 .Include(p => p.Comments)
                 .Where(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                 .ToListAsync();
         }
 
-        public override async Task UpdateAsync(Product product)
+        public override async Task UpdateAsync(int id, Product product)
         {
-            var productFromDb = await _context.Products.FirstOrDefaultAsync(p => p.Id == product.Id);
+            var productFromDb = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
 
             productFromDb.Name = product.Name;
             productFromDb.Price = product.Price;

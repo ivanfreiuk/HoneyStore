@@ -75,7 +75,7 @@ namespace HoneyStore.Api.Controllers
                     return NotFound();
                 }
 
-                await _categoryService.UpdateCategoryAsync(category);
+                await _categoryService.UpdateCategoryAsync(id, category);
                 return Ok();
             }
 

@@ -12,6 +12,6 @@ namespace HoneyStore.BusinessLogic.Interfaces
 
         Task RemoveProducerAsync(int id);
 
-        Task UpdateProducerAsync(ProducerDto producer);
+        Task UpdateProducerAsync(int id, ProducerDto producer);
     }
 }

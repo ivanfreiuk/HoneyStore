@@ -11,7 +11,6 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using AutoMapper;
 using HoneyStore.BusinessLogic.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -142,19 +141,16 @@ app.Run();
 
 async Task CreateUsers(IServiceProvider serviceProvider)
 {
-    //initializing custom roles   
     var roleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
     var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
     string[] roleNames = { "Admin", "User", "Manager" };
-    IdentityResult roleResult;
 
     foreach (var roleName in roleNames)
     {
         var roleExist = await roleManager.RoleExistsAsync(roleName);
         if (!roleExist)
         {
-            //create the roles and seed them to the database: Question 1  
-            roleResult = await roleManager.CreateAsync(new Role
+            await roleManager.CreateAsync(new Role
             {
                 Name = roleName
             });
@@ -167,6 +163,8 @@ async Task CreateUsers(IServiceProvider serviceProvider)
     {
         user = new User
         {
+            FirstName = "Admin",
+            LastName = "Admin",
             UserName = "admin@gmail.com",
             Email = "admin@gmail.com",
         };
@@ -181,6 +179,8 @@ async Task CreateUsers(IServiceProvider serviceProvider)
     {
         user1 = new User
         {
+            FirstName = "Manager",
+            LastName = "Manager",
             UserName = "manager@gmail.com",
             Email = "manager@gmail.com",
         };
@@ -194,6 +194,8 @@ async Task CreateUsers(IServiceProvider serviceProvider)
     {
         user2 = new User
         {
+            FirstName = "User",
+            LastName = "User",
             UserName = "user@gmail.com",
             Email = "user@gmail.com",
         };

@@ -105,7 +105,7 @@ namespace HoneyStore.Api.Controllers
                     return CreatedAtRoute("GetCartItemById", cartItem.Id, cartItem);
                 }
 
-                await _cartItemService.UpdateCartItemAsync(cartItem);
+                await _cartItemService.UpdateCartItemAsync(id, cartItem);
                 return Ok();
 
             }

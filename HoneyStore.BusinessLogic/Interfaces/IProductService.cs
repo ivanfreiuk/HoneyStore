@@ -14,7 +14,7 @@ namespace HoneyStore.BusinessLogic.Interfaces
 
         Task RemoveProductAsync(int id);
 
-        Task UpdateProductAsync(ProductDto product);
+        Task UpdateProductAsync(int id, ProductDto product);
 
         Task<ICollection<ProductDto>> GetProductsByCategoryId(int categoryId);
     }

@@ -14,6 +14,6 @@ namespace HoneyStore.BusinessLogic.Interfaces
 
         Task RemoveCartItemAsync(int id);
 
-        Task UpdateCartItemAsync(CartItemDto cartItem);
+        Task UpdateCartItemAsync(int id, CartItemDto cartItem);
     }
 }

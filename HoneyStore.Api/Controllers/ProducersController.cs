@@ -77,7 +77,7 @@ namespace HoneyStore.Api.Controllers
                     return NotFound();
                 }
 
-                await _producerService.UpdateProducerAsync(producer);
+                await _producerService.UpdateProducerAsync(id, producer);
                 return Ok();
 
             }

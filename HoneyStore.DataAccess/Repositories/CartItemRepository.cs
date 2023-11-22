@@ -27,10 +27,10 @@ namespace HoneyStore.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public override async Task UpdateAsync(CartItem cartItem)
+        public override async Task UpdateAsync(int id, CartItem cartItem)
         {
             var cartItemFromDb = await _context.CartItems
-                .FirstOrDefaultAsync(i => i.Id == cartItem.Id);
+                .FirstOrDefaultAsync(i => i.Id == id);
 
             cartItemFromDb.IsOrdered = cartItem.IsOrdered;
             cartItemFromDb.Quantity = cartItem.Quantity;

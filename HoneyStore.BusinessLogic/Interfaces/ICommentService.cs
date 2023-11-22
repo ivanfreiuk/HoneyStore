@@ -14,6 +14,6 @@ namespace HoneyStore.BusinessLogic.Interfaces
 
         Task RemoveCommentAsync(int id);
 
-        Task UpdateCommentAsync(CommentDto comment);
+        Task UpdateCommentAsync(int id, CommentDto comment);
     }
 }

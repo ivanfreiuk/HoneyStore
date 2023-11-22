@@ -18,6 +18,6 @@ namespace HoneyStore.DataAccess.Interfaces
 
         Task RemoveRangeAsync(ICollection<TEntity> entities);
 
-        Task UpdateAsync(TEntity entity);
+        Task UpdateAsync(int id, TEntity entity);
     }
 }

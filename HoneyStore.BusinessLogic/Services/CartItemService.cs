@@ -62,11 +62,11 @@ namespace HoneyStore.BusinessLogic.Services
             await _uow.SaveAsync();
         }
 
-        public async Task UpdateCartItemAsync(CartItemDto cartItem)
+        public async Task UpdateCartItemAsync(int id, CartItemDto cartItem)
         {
             var cartItemEntity = _mapper.Map<CartItemDto, CartItem>(cartItem);
 
-            await _uow.CartItems.UpdateAsync(cartItemEntity);
+            await _uow.CartItems.UpdateAsync(id, cartItemEntity);
 
             await _uow.SaveAsync();
         }

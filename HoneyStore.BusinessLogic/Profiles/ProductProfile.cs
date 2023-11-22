@@ -11,7 +11,6 @@ namespace HoneyStore.BusinessLogic.Profiles
         {
             const string baseUri = "https://localhost:44351";
             CreateMap<Product, ProductDto>()
-                .ForMember(dest => dest.Categories, opt => opt.MapFrom(p => p.ProductCategories.Select(i => i.Category)))
                 .ForMember(dest => dest.Mark,
                 opt => opt.MapFrom(b => uow.Comments.GetMarkByProductId(b.Id)))
                 .ForMember(dest=> dest.ImageUrl, opt=> opt.MapFrom(b=> CreateImageUrl(baseUri, b.ImageUrl)));

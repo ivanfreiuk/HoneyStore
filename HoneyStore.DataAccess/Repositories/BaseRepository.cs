@@ -49,7 +49,7 @@ namespace HoneyStore.DataAccess.Repositories
             _context.Set<TEntity>().RemoveRange(entities);
         }
 
-        public virtual async Task UpdateAsync(TEntity entity)
+        public virtual async Task UpdateAsync(int id, TEntity entity)
         {
             _context.Set<TEntity>().Update(entity);
         }

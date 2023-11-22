@@ -62,21 +62,6 @@ namespace HoneyStore.BusinessLogic.Services
             await _uow.Products.AddAsync(productEntity);
             await _uow.SaveAsync();
 
-            var productFromDb = await _uow.Products.GetAsync(productEntity.Id);
-
-            foreach (var category in product.Categories)
-            {
-                productFromDb.ProductCategories.Add(new ProductCategory
-                {
-                    ProductId = productFromDb.Id,
-                    CategoryId = category.Id
-                });
-            }
-            
-            await _uow.Products.UpdateAsync(productFromDb);
-
-            await _uow.SaveAsync();
-
             photo.Id = photoEntity.Id;
             product.Id = productEntity.Id;
         }
@@ -90,11 +75,11 @@ namespace HoneyStore.BusinessLogic.Services
             await _uow.SaveAsync();
         }
 
-        public async Task UpdateProductAsync(ProductDto product)
+        public async Task UpdateProductAsync(int id, ProductDto product)
         {
             var productEntity = _mapper.Map<ProductDto, Product>(product);
 
-            await _uow.Products.UpdateAsync(productEntity);
+            await _uow.Products.UpdateAsync(id, productEntity);
 
             await _uow.SaveAsync();
         }

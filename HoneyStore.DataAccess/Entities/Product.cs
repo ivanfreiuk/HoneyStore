@@ -14,6 +14,8 @@ namespace HoneyStore.DataAccess.Entities
 
         public string Description { get; set; }
 
+        public int Mark { get; set; }
+
         public int Quantity { get; set; }
 
         public bool CommentsEnabled { get; set; }
@@ -23,11 +25,13 @@ namespace HoneyStore.DataAccess.Entities
         public Producer Producer { get; set; }
 
         public int? ProductPhotoId { get; set; }
-
+        
         public ProductPhoto ProductPhoto { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public int? CategoryId { get; set; }
 
-        public ICollection<ProductCategory> ProductCategories { get; set; }
+        public Category Category { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

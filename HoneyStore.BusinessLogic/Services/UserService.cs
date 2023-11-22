@@ -40,9 +40,9 @@ namespace HoneyStore.BusinessLogic.Services
             await _uow.SaveAsync();
         }
 
-        public async Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync(int id, User user)
         {
-            await _uow.Users.UpdateAsync(user);
+            await _uow.Users.UpdateAsync(id, user);
 
             await _uow.SaveAsync();
         }

@@ -27,5 +27,10 @@ namespace HoneyStore.DataAccess.Repositories
                 .Where(w => w.UserId == userId)
                 .ToListAsync();
         }
+
+        public async Task UpdateAsync(Wish wish)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

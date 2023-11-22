@@ -12,6 +12,6 @@ namespace HoneyStore.BusinessLogic.Interfaces
 
         Task RemoveCategoryAsync(int id);
 
-        Task UpdateCategoryAsync(CategoryDto category);
+        Task UpdateCategoryAsync(int id, CategoryDto category);
     }
 }

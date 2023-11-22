@@ -1,7 +1,5 @@
-﻿using System.Drawing;
-using HoneyStore.BusinessLogic.Interfaces;
+﻿using HoneyStore.BusinessLogic.Interfaces;
 using HoneyStore.BusinessLogic.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -41,7 +39,7 @@ namespace HoneyStore.Api.Controllers
                 return NoContent();
             }
 
-            return Ok(GetDummyProducts());
+            return Ok(products);
         }
 
         [HttpGet("{id}")]
@@ -49,47 +47,6 @@ namespace HoneyStore.Api.Controllers
         {
             var product = await _productService.GetProductAsync(id);
             
-            //product = new ProductDto
-            //{
-            //    Id = 1,
-            //    Description = "Honey black",
-            //    Name = "Honey test",
-            //    Categories = new List<CategoryDto>
-            //    {
-            //        new CategoryDto
-            //        {
-            //            Id = 1,
-            //            Name = "test category"
-            //        }
-            //    },
-            //    Comments = new List<CommentDto>
-            //    {
-            //        new CommentDto
-            //        {
-            //            Id = 1,
-            //            Content = "good honey!",
-            //            CreatedOn = DateTime.Now,
-            //            Headline = "remove headline",
-            //            Mark = 3,
-            //            ProductId = 1,
-            //            UserId = 1,
-            //            UserName = "Ivan Freiuk"
-            //        }
-            //    },
-            //    CommentsEnabled = true,
-            //    ImageUrl = null,
-            //    Mark = 5,
-            //    Price = 100,
-            //    ProducerId = 1,
-            //    Producer = new ProducerDto
-            //    {
-            //        Id = 1,
-            //        Description = "Honey producer description",
-            //        Name = "Honey producer",
-            //    }
-
-            //};
-
             if (product == null)
             {
                 return NotFound();
@@ -156,7 +113,7 @@ namespace HoneyStore.Api.Controllers
                 return NotFound();
             }
 
-            await _productService.UpdateProductAsync(product);
+            await _productService.UpdateProductAsync(id, product);
             return NoContent();
         }
 
@@ -186,53 +143,6 @@ namespace HoneyStore.Api.Controllers
             }
 
             return Ok(product);
-        }
-
-        private static IEnumerable<ProductDto> GetDummyProducts()
-        {
-            return new List<ProductDto>
-            {
-                new ProductDto
-                {
-                    Id = 1,
-                    Description = "Honey black",
-                    Name = "Honey test",
-                    Categories = new List<CategoryDto>
-                    {
-                        new CategoryDto
-                        {
-                            Id = 1,
-                            Name = "test category"
-                        }
-                    },
-                    Comments = new List<CommentDto>
-                    {
-                        new CommentDto
-                        {
-                            Id = 1,
-                            Content = "good honey!",
-                            CreatedOn = DateTime.Now,
-                            Headline = "remove headline",
-                            Mark = 3,
-                            ProductId = 1,
-                            UserId = 1,
-                            UserName = "Ivan Freiuk"
-                        }
-                    },
-                    CommentsEnabled = true,
-                    ImageUrl = null,
-                    Mark = 5,
-                    Price = 100,
-                    ProducerId = 1,
-                    Producer = new ProducerDto
-                    {
-                        Id = 1,
-                        Description = "Honey producer description",
-                        Name = "Honey producer",
-                    }
-
-                }
-            };
         }
     }
 }

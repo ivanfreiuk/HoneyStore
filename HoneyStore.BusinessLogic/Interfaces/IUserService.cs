@@ -13,6 +13,6 @@ namespace HoneyStore.BusinessLogic.Interfaces
 
         Task RemoveUserAsync(User user);
 
-        Task UpdateUserAsync(User user);
+        Task UpdateUserAsync(int id, User user);
     }
 }

@@ -53,15 +53,13 @@ namespace HoneyStore.BusinessLogic.Services
             await _uow.SaveAsync();
         }
 
-        public async Task UpdateCategoryAsync(CategoryDto category)
+        public async Task UpdateCategoryAsync(int id, CategoryDto category)
         {
             var categoryEntity = _mapper.Map<CategoryDto, Category>(category);
 
-            await _uow.Categories.UpdateAsync(categoryEntity);
+            await _uow.Categories.UpdateAsync(id, categoryEntity);
 
             await _uow.SaveAsync();
         }
-
-        
     }
 }

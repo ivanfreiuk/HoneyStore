@@ -33,21 +33,6 @@ namespace HoneyStore.DataAccess.Context
         {
             base.OnModelCreating(builder);
 
-            #region ProductCategory
-
-            builder.Entity<ProductCategory>()
-                .HasKey(bc => new { bc.ProductId, bc.CategoryId });
-            builder.Entity<ProductCategory>()
-                .HasOne(bc => bc.Product)
-                .WithMany(b => b.ProductCategories)
-                .HasForeignKey(bc => bc.ProductId);
-            builder.Entity<ProductCategory>()
-                .HasOne(bc => bc.Category)
-                .WithMany(c => c.ProductCategories)
-                .HasForeignKey(bc => bc.CategoryId);
-
-            #endregion
-
             #region Wish
 
             builder.Entity<Wish>().HasKey(w => new

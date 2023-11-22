@@ -53,11 +53,11 @@ namespace HoneyStore.BusinessLogic.Services
             await _uow.SaveAsync();
         }
 
-        public async Task UpdateProducerAsync(ProducerDto producer)
+        public async Task UpdateProducerAsync(int id, ProducerDto producer)
         {
             var producerEntity = _mapper.Map<ProducerDto, Producer>(producer);
 
-            await _uow.Producers.UpdateAsync(producerEntity);
+            await _uow.Producers.UpdateAsync(id, producerEntity);
 
             await _uow.SaveAsync();
         }

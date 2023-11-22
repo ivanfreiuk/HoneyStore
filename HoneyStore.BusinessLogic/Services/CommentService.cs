@@ -62,11 +62,11 @@ namespace HoneyStore.BusinessLogic.Services
             await _uow.SaveAsync();
         }
 
-        public async Task UpdateCommentAsync(CommentDto comment)
+        public async Task UpdateCommentAsync(int id, CommentDto comment)
         {
             var commentEntity = _mapper.Map<CommentDto, Comment>(comment);
 
-            await _uow.Comments.UpdateAsync(commentEntity);
+            await _uow.Comments.UpdateAsync(id, commentEntity);
 
             await _uow.SaveAsync();
         }
