@@ -9,6 +9,9 @@
             <a mat-button routerLink="/users">Список користувачів</a>
           </div>
           <div class="nav-item">
+            <a mat-button routerLink="/panel/products">Панель керування</a>
+          </div>
+          <div class="nav-item">
             <a mat-button routerLink="/products">Продукція</a>
           </div>
           <div *ngIf="authSvc.currentUserValue?.roleName==='User'" class="nav-item">

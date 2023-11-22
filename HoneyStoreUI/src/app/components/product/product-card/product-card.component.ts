@@ -28,12 +28,10 @@ export class ProductCardComponent implements OnInit {
   constructor(private fileHelper: FileHelper,
     private cartSvc: CartItemService, 
     private authSvc: AuthenticationService, 
-    private router: Router) { 
-    
-  }
+    private router: Router) {        
+   }
 
   ngOnInit() {
-    console.log(this.product);
     this.imageURL = this.fileHelper.getImageSafeURL(this.product.productPhoto.fileBytes, this.product.productPhoto.fileName);
   }
 

@@ -23,8 +23,9 @@
     max-height: 100%;
 }
 
-.product-price {
-    font-size: 600;
+.product-description
+.product-short {
+    margin: 15px;
 }
 
 .bk-add-to-card button,

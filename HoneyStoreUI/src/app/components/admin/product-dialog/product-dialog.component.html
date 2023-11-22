@@ -1,5 +1,5 @@
 <div class="bootstrap-wrapper">
-    <form [formGroup]="productForm" *ngIf="currentProduct">
+    <form [formGroup]="productForm" *ngIf="productForm.value">
         <div class="row">
             <div class="col-12">
                 <h2 class="float-left" mat-dialog-title>{{dialogTitle}}</h2>

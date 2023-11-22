@@ -19,9 +19,6 @@ mat-card {
     width: 100%;
 }
 mat-card .image-wrapper {
-    /* background-image: url('/assets/images/photo_upload.svg');
-    background-repeat: no-repeat;
-    background-position: center; */
     height: 350px;
     max-width: 100%;
     margin: auto;

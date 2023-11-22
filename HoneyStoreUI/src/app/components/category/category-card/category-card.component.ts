@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 import { Category } from '../../../models';
 import { CategoryService } from '../../../services';
 
@@ -12,7 +13,8 @@ import { CategoryService } from '../../../services';
   imports: [CommonModule,
   MatCardModule,
   MatButtonModule,
-  MatDividerModule],
+  MatDividerModule,
+  MatListModule],
   templateUrl: './category-card.component.html',
   styleUrl: './category-card.component.css'
 })
@@ -24,9 +26,6 @@ export class CategoryCardComponent {
     this.categorySvc.getAll().subscribe(data => {
       this.categories = data;
     })
-  }
-
-  ngOnInit() {
   }
 
   emitCategory(categoryId: number) {

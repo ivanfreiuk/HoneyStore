@@ -6,17 +6,20 @@
                     <img [src]="imageURL" [alt]="currentProduct.name">
                 </div>
                 <div class="col-md-6">
-                    <div class="page-name">
-                        <h1><strong>{{currentProduct.name}}</strong></h1>
-                    </div>
                     <div *ngIf="currentProduct.mark" class="rating">
                         <!-- <star-rating value="{{currentProduct?.mark}}" checkedcolor="#f70" uncheckedcolor="#ddd" size="30px"
                 readonly="true"></star-rating> -->
                     </div>
                     <mat-card class="card-offer">
+                        <mat-card-header>
+                            <mat-card-title>{{currentProduct.name}}</mat-card-title>
+                            <mat-card-subtitle>{{currentProduct.category.name}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
                         <mat-card-content>
-                            <div class="product-price">
-                                <h3>Ціна: {{currentProduct.price}}$</h3>
+                            <div class="product-short">
+                                <p><strong>Ціна : </strong>{{currentProduct.price}} грн.</p>
+                                <p><strong>Артикул : </strong>{{currentProduct.id}}</p>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -61,52 +64,8 @@
                             <ng-template mat-tab-label>
                                 <strong class="tab-name">Опис</strong>
                             </ng-template>
-                            <div>
-                                <p>{{currentProduct.description}}</p>
-                            </div>
-                        </mat-tab>
-                        <mat-tab class="tab-content">
-                            <ng-template mat-tab-label>
-                                <strong class="tab-name">Характеристики</strong>
-                            </ng-template>
-                            <h1>All details</h1>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p><strong>Author</strong></p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>{{currentProduct.producer.name}}></p>
-                                    </div>
-                                </div>
-                                <mat-divider></mat-divider>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p><strong>Category</strong></p>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <p><span *ngFor="let category of currentProduct?.categories">{{category.name}}
-                                            </span></p>
-                                    </div>
-                                </div>
-                                <mat-divider></mat-divider>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p><strong>Language</strong></p>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <p>{{currentProduct.name}}</p>
-                                    </div>
-                                </div>
-                                <mat-divider></mat-divider>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p><strong>Page size</strong></p>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <p>{{currentProduct.name}}</p>
-                                    </div>
-                                </div>
+                            <div class="product-description">
+                                <span [innerHTML]="currentProduct.description"></span>
                             </div>
                         </mat-tab>
                         <mat-tab class="tab-content">

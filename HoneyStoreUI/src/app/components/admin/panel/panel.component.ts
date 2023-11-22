@@ -15,23 +15,21 @@ import { MatTabsModule } from '@angular/material/tabs';
   styleUrl: './panel.component.css'
 })
 export class PanelComponent {
-  navLinks: any[] = [];
+  navLinks: any[] = [
+    {
+      label: 'Продукція',
+      path: './products',
+      index: 0
+    },
+    {
+      label: 'Користувачі',
+      path: './users',
+      index: 1
+    },
+  ];
   activeLinkIndex: number = 0;
 
   constructor(private router: Router) {
-    this.navLinks = [
-      {
-        label: 'Продукція',
-        path: './products',
-        index: 0
-      },
-      {
-        label: 'Користувачі',
-        path: './users',
-        index: 1
-      },
-    ];
-
     this.router.events.subscribe(() => {
       this.activeLinkIndex = this.navLinks.indexOf(this.navLinks.find(tab => tab.path === '.' + this.router.url));
     });

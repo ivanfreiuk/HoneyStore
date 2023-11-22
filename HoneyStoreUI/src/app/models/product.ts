@@ -14,7 +14,8 @@ export class Product {
     producer: Producer;
     productPhotoId: number;
     productPhoto: ProductPhoto;
-    categories: Category[] | undefined;
+    categoryId: number;
+    category: Category;
 
     constructor() {
         this.id = 0;
@@ -22,12 +23,13 @@ export class Product {
         this.imageUrl = '';
         this.mark = 0;
         this.description = '';
-        this.price = 0;
-        this.quantity = 0;       
+        this.price = 10;
+        this.quantity = 1;       
         this.commentsEnabled = true;
         this.productPhotoId = 0;
         this.productPhoto = new ProductPhoto();
         this.producer = new Producer();
-        this.categories = [];
+        this.categoryId = 0;
+        this.category = new Category();
     }
 }

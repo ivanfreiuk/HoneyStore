@@ -8,12 +8,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CategoryCardComponent } from '../../category/category-card/category-card.component';
 
 @Component({
   selector: 'app-product-container',
   standalone: true,
   imports: [CommonModule,
   ProductListComponent,
+  CategoryCardComponent,
   MatIconModule,
   MatDividerModule,
   MatSelectModule,
@@ -41,7 +43,7 @@ export class ProductContainerComponent {
     }
   }
 
-  onCategorySelected(categoryId: number) {
+  onCategorySelected(categoryId: any) {
     this.productSvc.getProductsByCategoryId(categoryId).subscribe(data => {
       this.products = data;
     })

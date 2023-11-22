@@ -33,6 +33,7 @@ export class AdminProductListComponent implements OnInit, OnChanges {
     'name',
     'price',
     'mark',
+    'editOption',
     'deleteOption',
     'detailOption',
     'commentingOption'];
@@ -62,7 +63,7 @@ export class AdminProductListComponent implements OnInit, OnChanges {
     }
   }
 
-  openDialog(): void {
+  openCreationDialog(): void {
     const dialogRef = this.dialog.open(ProductDialogComponent, {
       maxHeight: '750px',
       maxWidth: '1000px',
@@ -71,16 +72,29 @@ export class AdminProductListComponent implements OnInit, OnChanges {
       data: { productId: null, formMode: FormMode.New}
     });
 
-    dialogRef.afterClosed().subscribe((i) => {this.refreshDataSource();});
+    dialogRef.afterClosed().subscribe(() => {this.refreshDataSource();});
+  }
+
+  openEditDialog(productId: number): void {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      maxHeight: '750px',
+      maxWidth: '1000px',
+      height: '100%',
+      width: '100%',
+      data: { productId: productId, formMode: FormMode.Edit}
+    });
+
+    dialogRef.afterClosed().subscribe(() => {this.refreshDataSource();});
   }
 
   remove(product: Product) {
     this.productSvc.delete(product.id).subscribe(() => {
-      this.snackBar.open(`Product "${product.name}" was successfully deleted.`, 'Close', {
+      this.snackBar.open(`Продукт "${product.name}" був успішно видалений.`, 'Закрити', {
         duration: 3000,
       });
 
-      this.dataSource.data = this.dataSource.data.filter(b => b.id != product.id);
+      this.refreshDataSource();
+      //this.dataSource.data = this.dataSource.data.filter(b => b.id != product.id);
     });
   }
 
@@ -89,8 +103,7 @@ export class AdminProductListComponent implements OnInit, OnChanges {
   }
 
   toggleCommenting(event: MatSlideToggleChange, product: Product) {
-    product.commentsEnabled = event.checked;
-    console.log(product.commentsEnabled);
+     product.commentsEnabled = event.checked;
      this.productSvc.update(product).subscribe();
   }
 

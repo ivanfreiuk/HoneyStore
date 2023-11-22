@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormMode } from '../../../constants/form-mode';
 import { Category, Product } from '../../../models';
@@ -38,15 +38,15 @@ import { EditorModule } from '@tinymce/tinymce-angular';
   templateUrl: './product-dialog.component.html',
   styleUrl: './product-dialog.component.css'
 })
-export class ProductDialogComponent {
+export class ProductDialogComponent implements OnInit {
   public categorySource: Array<Category> = [];
   public currentProduct: Product = new Product();
   public imageFile: File = new File([], '');
   public imageURL: any = '../../../../assets/images/photo_upload.svg';
 
-  productForm: FormGroup = new FormGroup({});
+  productForm: FormGroup = this.createFormGroup(this.currentProduct);
   formMode: FormMode;
-  dialogTitle: string;
+  dialogTitle: string = '';
 
   constructor(private productSvc: ProductService,
     private authSvc: AuthenticationService,
@@ -60,19 +60,26 @@ export class ProductDialogComponent {
     this.formMode = dialogData.formMode;
     this.categorySvc.getAll().subscribe(data => {
       this.categorySource = data;
-    });
+    });    
+  }
 
-    if (this.formMode === FormMode.New) {
-      this.dialogTitle = "Новий продукт"
-      this.currentProduct = new Product();
-      this.productForm = this.createFormGroup(this.currentProduct);
-    } else {
-      this.dialogTitle = `Редагувати продукт# ${dialogData.productId}`;
-      this.productSvc.getById(dialogData.productId).subscribe((product: Product) => {
-        this.currentProduct = product;
-        this.productForm = this.createFormGroup(this.currentProduct);
-        this.imageURL = this.fileHelper.getImageSafeURL(this.currentProduct.productPhoto.fileBytes, this.currentProduct.productPhoto.fileName);
-      });
+  ngOnInit() {
+    switch (this.formMode) {
+      case FormMode.New: {
+        this.dialogTitle = "Новий продукт"
+        this.currentProduct = new Product();
+        this.productForm = this.createFormGroup(this.currentProduct);        
+        break;
+      }
+      case FormMode.Edit: {
+        this.dialogTitle = `Редагувати продукт# ${this.dialogData.productId}`;
+        this.productSvc.getById(this.dialogData.productId).subscribe((product: Product) => {
+          this.currentProduct = product;
+          this.productForm = this.createFormGroup(this.currentProduct);
+          this.imageURL = this.fileHelper.getImageSafeURL(this.currentProduct.productPhoto.fileBytes, this.currentProduct.productPhoto.fileName);
+        });
+        break;
+      }
     }
   }
 
@@ -98,11 +105,10 @@ export class ProductDialogComponent {
 
     switch (this.formMode) {
       case FormMode.New: {
-        this.productSvc.post(this.currentProduct, this.imageFile).subscribe((id: number) => {
-          this.showNotification(`Успішно додано новий продукт # ${id}`, 'Закрити')
+        this.productSvc.post(this.currentProduct, this.imageFile).subscribe((data: any) => {
+          this.showNotification(`Успішно додано новий продукт # ${data.id}`, 'Закрити')
           this.dialogRef.close();
-        });
-        
+        });        
         break;
       }
       case FormMode.Edit: {
@@ -121,6 +127,8 @@ export class ProductDialogComponent {
   populateProductData() {
     const productValue = this.productForm.value;
     this.currentProduct.name = productValue.name;
+    this.currentProduct.producer.name = productValue.producerName;
+    this.currentProduct.categoryId = productValue.category
     this.currentProduct.price = productValue.price;
     this.currentProduct.quantity = productValue.quantity;
     this.currentProduct.description = productValue.description;
@@ -130,7 +138,7 @@ export class ProductDialogComponent {
     return this.formBuilder.group({
       name: [product.name],
       producerName: [product.producer.name],
-      //category: [product.categoryId],
+      category: [product.categoryId],
       price: [product.price, [Validators.min(0), Validators.max(1000000), Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")]],
       quantity: [product.quantity, [Validators.min(0), Validators.max(100000), Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")]],
       description: [product.description],
