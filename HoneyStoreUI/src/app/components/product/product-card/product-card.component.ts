@@ -4,10 +4,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-import { CartItem, Product } from '../../../models';
-import { AuthenticationService, CartItemService } from '../../../services';
+import { CartItem, Product, Wish } from '../../../models';
+import { AuthenticationService, CartItemService, WishService } from '../../../services';
 import { Router } from '@angular/router';
 import { FileHelper } from '../../../helpers';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-card',
@@ -27,7 +28,9 @@ export class ProductCardComponent implements OnInit {
 
   constructor(private fileHelper: FileHelper,
     private cartSvc: CartItemService, 
+    private wishSvc: WishService,
     private authSvc: AuthenticationService, 
+    private snackBar: MatSnackBar,
     private router: Router) {        
    }
 
@@ -39,27 +42,39 @@ export class ProductCardComponent implements OnInit {
     this.router.navigate([`/detail/${productId}`]);
   }
 
-  addToCart(productId: number) {
+  addToCart(productId: number, productName: string) {
     this.cartSvc.getItemsByUserId(this.authSvc.currentUserValue?.id).subscribe(data => {
-      let cartItems: CartItem[] = data;
-      let cartItem: CartItem = cartItems.filter(i => i.productId === productId)[0];
-      if (cartItem) {
-        cartItem.quantity++;
-        this.cartSvc.update(cartItem).subscribe();
+      let existingCartItem: CartItem = data.filter(i => i.productId === productId)[0];
+      
+      if (existingCartItem) {
+        existingCartItem.quantity++;
+        this.cartSvc.update(existingCartItem).subscribe();
       } else {
-        cartItem = this.createCartItem(productId);
-        this.cartSvc.post(cartItem).subscribe();
+        const cartItem = new CartItem(productId, this.authSvc.currentUserValue?.id, 1);
+        this.cartSvc.post(cartItem).subscribe(data => {
+          this.showNotification(`Продукт ${productName} додано в корзину`, 'Закрити')
+       });
       }
     })
   }
 
-  private createCartItem(productId: number): CartItem {
-    const cartItem = new CartItem();
-    cartItem.productId = productId;
-    cartItem.userId = this.authSvc.currentUserValue?.id;
-    cartItem.isOrdered = false;
-    cartItem.createdOn = new Date(Date.now());
-    cartItem.quantity = 1;
-    return cartItem;
+  addToWish(productId: number, productName: string) {
+    this.wishSvc.getWishesByUserId(this.authSvc.currentUserValue?.id).subscribe(data => {
+      let existingWish: Wish = data.filter(i => i.productId === productId)[0];
+      
+      if (!existingWish) {
+        const wish = new Wish(productId, this.authSvc.currentUserValue?.id);
+
+       this.wishSvc.post(wish).subscribe(data => {
+          this.showNotification(`Продукт ${productName} додано до списку вподобань`, 'Закрити')
+       });
+      }
+    })
+  }
+
+  showNotification(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 }

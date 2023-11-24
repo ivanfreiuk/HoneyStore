@@ -1,6 +1,7 @@
 import { Producer } from './producer';
 import { Category } from './category';
 import { ProductPhoto } from './product-photo';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 export class Product {
     id: number;
@@ -14,7 +15,7 @@ export class Product {
     producer: Producer;
     productPhotoId: number;
     productPhoto: ProductPhoto;
-    categoryId: number;
+    categoryId: number | undefined;
     category: Category;
 
     constructor() {
@@ -29,7 +30,7 @@ export class Product {
         this.productPhotoId = 0;
         this.productPhoto = new ProductPhoto();
         this.producer = new Producer();
-        this.categoryId = 0;
+        this.categoryId = undefined;
         this.category = new Category();
     }
 }

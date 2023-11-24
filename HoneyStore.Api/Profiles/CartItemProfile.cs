@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
+using HoneyStore.Api.ViewModels;
 using HoneyStore.BusinessLogic.Models;
-using HoneyStore.DataAccess.Entities;
 
-namespace HoneyStore.BusinessLogic.Profiles
+namespace HoneyStore.Api.Profiles
 {
-    public class CartItemProfile: Profile
+    public class CartItemProfile : Profile
     {
         public CartItemProfile()
         {
-            CreateMap<CartItem, CartItemDto>();
-
-            CreateMap<CartItemDto, CartItem>()
+            CreateMap<CartItemCreationModel, CartItemDto>()
                 .ForMember(dist => dist.CreatedOn, opt => opt.MapFrom(src => DateTime.Now));
         }
     }

@@ -35,7 +35,7 @@ namespace HoneyStore.BusinessLogic.Services
 
         public async Task<ICollection<WishDto>> GetWishesByUserIdAsync(int userId)
         {
-            var wishEntities = await _uow.Wishes.GetAllAsync();
+            var wishEntities = await _uow.Wishes.GetWishesByUserIdAsync(userId);
 
             var wishDtos = _mapper.Map<IEnumerable<Wish>, ICollection<WishDto>>(wishEntities);
 
@@ -43,15 +43,6 @@ namespace HoneyStore.BusinessLogic.Services
         }
 
         public async Task AddWishAsync(WishDto wish)
-        {
-            var wishEntity = _mapper.Map<WishDto, Wish>(wish);
-
-            await _uow.Wishes.AddAsync(wishEntity);
-
-            await _uow.SaveAsync();
-        }
-
-        public async Task AddUpdateAsync(WishDto wish)
         {
             var wishEntity = _mapper.Map<WishDto, Wish>(wish);
 

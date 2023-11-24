@@ -7,9 +7,7 @@
         public int UserId { get; set; }
 
         public int Quantity { get; set; }
-
-        public bool IsOrdered { get; set; }
-
+        
         public DateTime CreatedOn { get; set; }
 
         public int ProductId { get; set; }

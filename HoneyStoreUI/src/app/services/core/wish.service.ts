@@ -18,7 +18,7 @@ export class WishService {
     return this.http.get<Wish[]>(`${this.apiUrl}/wishes`);
   }
 
-  getWishesByUserId(userId: number): Observable<Wish[]> {
+  getWishesByUserId(userId: number | undefined): Observable<Wish[]> {
     return this.http.get<Wish[]>(`${this.apiUrl}/wishes/user/${userId}`);
   }
 
@@ -30,7 +30,7 @@ export class WishService {
     return this.http.put(`${this.apiUrl}/wishes/`, wish);
   }
 
-  delete(id: number) {
-    return this.http.delete(`${this.apiUrl}/wishes/` + id);
+  delete(productId: number, userId: number | undefined) {
+    return this.http.delete(`${this.apiUrl}/wishes/product/${productId}/user/${userId}`);
   }
 }

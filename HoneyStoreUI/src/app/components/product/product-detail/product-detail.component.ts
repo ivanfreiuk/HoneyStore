@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommentComponent } from '../../comment/comment/comment.component';
-import { AuthenticationService, CartItemService, CommentService, ProductService } from '../../../services';
-import { CartItem, Product, Comment } from '../../../models';
+import { AuthenticationService, CartItemService, CommentService, ProductService, WishService } from '../../../services';
+import { CartItem, Product, Comment, Wish } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
 import { CounterComponent } from '../../common/counter/counter.component';
 import { MatCardModule } from '@angular/material/card';
@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
 import { FileHelper } from '../../../helpers';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-detail',
@@ -28,7 +29,7 @@ import { FileHelper } from '../../../helpers';
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit {
   currentProduct: Product = new Product();
   productId: number = 0;
   productComments: Comment[] = [];
@@ -39,8 +40,10 @@ export class ProductDetailComponent {
   constructor(private productSvc: ProductService,
     private authSvc: AuthenticationService,
     private cartSvc: CartItemService,
+    private wishSvc: WishService,
     private commentSvc: CommentService,
     private fileHelper: FileHelper,
+    private snackBar: MatSnackBar,
     private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.productId = params['id'];
@@ -49,7 +52,9 @@ export class ProductDetailComponent {
     this.commentSvc.getCommentsByProductId(this.productId).subscribe(data => {
       this.productComments = data;
     });
+  }
 
+  ngOnInit(): void {
     this.productSvc.getById(this.productId).subscribe(
       data => {
         this.currentProduct = data;        
@@ -57,10 +62,9 @@ export class ProductDetailComponent {
       },
       error => {
         if (error.status == 401) {
-          // TODO
           this.productComments.length
         }
-      });
+    });
   }
 
   onQuantityChanged(value: number) {
@@ -73,27 +77,39 @@ export class ProductDetailComponent {
     });
   }
 
-  addToCart(productId: number) {
+  addToCart(productId: number, productName: string) {
     this.cartSvc.getItemsByUserId(this.authSvc.currentUserValue?.id).subscribe(data => {
-      let cartItems: CartItem[] = data;
-      let cartItem: CartItem = cartItems.filter(i => i.productId === productId)[0];
-      if (cartItem) {
-        cartItem.quantity+=this.quantity;
-        this.cartSvc.update(cartItem).subscribe();
+      let existingCartItem: CartItem = data.filter(i => i.productId === productId)[0];
+      
+      if (existingCartItem) {
+        existingCartItem.quantity++;
+        this.cartSvc.update(existingCartItem).subscribe();
       } else {
-        cartItem = this.createCartItem(productId);
-        this.cartSvc.post(cartItem).subscribe();
+        const cartItem = new CartItem(productId, this.authSvc.currentUserValue?.id, 1);
+        this.cartSvc.post(cartItem).subscribe(data => {
+          this.showNotification(`Продукт ${productName} додано в корзину`, 'Закрити')
+       });
       }
     })
   }
 
-  private createCartItem(productId: number): CartItem {
-    const cartItem = new CartItem();
-    cartItem.productId = productId;
-    cartItem.userId = this.authSvc.currentUserValue?.id;
-    cartItem.isOrdered = false;
-    cartItem.createdOn = new Date(Date.now());
-    cartItem.quantity = this.quantity;
-    return cartItem;
+  addToWish(productId: number, productName: string) {
+    this.wishSvc.getWishesByUserId(this.authSvc.currentUserValue?.id).subscribe(data => {
+      let existingWish: Wish = data.filter(i => i.productId === productId)[0];
+      
+      if (!existingWish) {
+        const wish = new Wish(productId, this.authSvc.currentUserValue?.id);
+
+       this.wishSvc.post(wish).subscribe(data => {
+          this.showNotification(`Продукт ${productName} додано до списку вподобань`, 'Закрити')
+       });
+      }
+    })
+  }
+
+  showNotification(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 }

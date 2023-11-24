@@ -11,6 +11,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { TabName } from '../../../constants/tab-name';
 
 @Component({
   selector: 'app-main-container',
@@ -34,27 +35,27 @@ export class MainContainerComponent {
   @ViewChild('sidenav') sidenav: MatSidenav | null = null;
 
   reason: string = '';
-  tabTitle: string = '';
+  cartTab: TabName = TabName.Cart;
+  wishTab: TabName = TabName.Wish;
+  activeSidenavTab: TabName = TabName.Cart;
   textToSearch: string = '';
-
 
   constructor(public authSvc: AuthenticationService,
     public cartSvc: CartItemService,
     public wishSvc: WishService,
     public router: Router) { }
 
-  ngOnInit() {
-  }
-
-  open(tabTitle: string) {
-    if(tabTitle==='cartTab') {
+  open(tabName: TabName) {
+    if(tabName === TabName.Cart) {
       this.cartSvc.getItemsByUserId(this.authSvc.currentUserValue?.id).subscribe(data=>{
         this.cartSvc.cartItemsValue = data;
-        //this.cartSvc.cartItemsValue.forEach(ci => this.cartSvc.totalSum += ci.quantity * ci.product.price);
       });
-    } else if(tabTitle ==='wishTab') {
-      // TODO
+    } else if(tabName === TabName.Wish) {
+      this.wishSvc.getWishesByUserId(this.authSvc.currentUserValue?.id).subscribe(data=>{
+        this.wishSvc.wishListValue = data;
+      });
     }
+    this.activeSidenavTab = tabName;
     this.sidenav?.open();
   }
 

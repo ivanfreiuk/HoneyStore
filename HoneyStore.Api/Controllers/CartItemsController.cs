@@ -1,4 +1,6 @@
-﻿using HoneyStore.BusinessLogic.Interfaces;
+﻿using AutoMapper;
+using HoneyStore.Api.ViewModels;
+using HoneyStore.BusinessLogic.Interfaces;
 using HoneyStore.BusinessLogic.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +11,12 @@ namespace HoneyStore.Api.Controllers
     public class CartItemsController : ControllerBase
     {
         private readonly ICartItemService _cartItemService;
+        private readonly IMapper _mapper;
 
-        public CartItemsController(ICartItemService cartItemService)
+        public CartItemsController(ICartItemService cartItemService, IMapper mapper)
         {
             _cartItemService = cartItemService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -55,7 +59,6 @@ namespace HoneyStore.Api.Controllers
             try
             {
                 var cartItems = await _cartItemService.GetCartItemsByUserId(userId);
-
                 if (cartItems == null)
                 {
                     return NoContent();
@@ -71,7 +74,7 @@ namespace HoneyStore.Api.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateCartItem([FromBody] CartItemDto cartItem)
+        public async Task<IActionResult> CreateCartItem([FromBody] CartItemCreationModel model)
         {
             try
             {
@@ -80,6 +83,7 @@ namespace HoneyStore.Api.Controllers
                     return BadRequest("Invalid model object");
                 }
 
+                var cartItem = _mapper.Map<CartItemDto>(model);
                 await _cartItemService.AddCartItemAsync(cartItem);
 
                 return Ok();

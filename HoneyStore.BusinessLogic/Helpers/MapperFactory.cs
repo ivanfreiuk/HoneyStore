@@ -27,8 +27,8 @@ namespace HoneyStore.BusinessLogic.Helpers
                 cfg.AddProfile<WishProfile>();
                 cfg.AddProfile<OrderProfile>();
                 cfg.AddProfile<CartItemProfile>();
-                cfg.AddProfile(new ProductProfile(_unitOfWork));
-                cfg.AddProfile(new CommentProfile(_unitOfWork));
+                cfg.AddProfile(new ProductProfile());
+                cfg.AddProfile(new CommentProfile());
             });
             return new Mapper(config);
         }

@@ -1,11 +1,7 @@
-﻿using HoneyStore.DataAccess.Interfaces;
-
-namespace HoneyStore.DataAccess.Entities
+﻿namespace HoneyStore.Api.ViewModels
 {
-    public class CartItem: IIdentifier
+    public class CartItemCreationModel
     {
-        public int Id { get; set; }
-
         public int UserId { get; set; }
 
         public int Quantity { get; set; }
@@ -13,9 +9,7 @@ namespace HoneyStore.DataAccess.Entities
         public DateTime CreatedOn { get; set; }
 
         public int ProductId { get; set; }
-
-        public Product Product { get; set; }
-
+        
         public int? OrderId { get; set; }
     }
 }

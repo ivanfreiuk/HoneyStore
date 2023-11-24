@@ -15,6 +15,7 @@ namespace HoneyStore.DataAccess.Repositories
         {
             return await _context.CartItems
                 .Include(ci => ci.Product)
+                .ThenInclude(p => p.ProductPhoto)
                 .FirstOrDefaultAsync(ci => ci.Id == id);
         }
 
@@ -23,6 +24,7 @@ namespace HoneyStore.DataAccess.Repositories
         {
             return await _context.CartItems
                 .Include(ci => ci.Product)
+                .ThenInclude(p => p.ProductPhoto)
                 .Where(ci => ci.UserId == userId)
                 .ToListAsync();
         }
@@ -32,7 +34,7 @@ namespace HoneyStore.DataAccess.Repositories
             var cartItemFromDb = await _context.CartItems
                 .FirstOrDefaultAsync(i => i.Id == id);
 
-            cartItemFromDb.IsOrdered = cartItem.IsOrdered;
+            cartItemFromDb.OrderId = cartItem.OrderId;
             cartItemFromDb.Quantity = cartItem.Quantity;
 
             _context.CartItems.Update(cartItemFromDb);

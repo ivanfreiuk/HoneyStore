@@ -24,10 +24,11 @@ namespace HoneyStore.DataAccess.Repositories
         {
             return await _context.Wishes
                 .Include(w => w.Product)
+                .ThenInclude(p => p.ProductPhoto)
                 .Where(w => w.UserId == userId)
                 .ToListAsync();
         }
-
+        
         public async Task UpdateAsync(Wish wish)
         {
             throw new NotImplementedException();

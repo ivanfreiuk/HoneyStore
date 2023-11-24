@@ -1,6 +1,6 @@
 ﻿namespace HoneyStore.Api.ViewModels
 {
-    public class UpdateBookModel
+    public class UpdateProductModel
     {
         
     }

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img [src]="imageURL" [alt]="currentProduct.name">
+                    <img [src]="imageURL" [alt]="currentProduct?.name">
                 </div>
                 <div class="col-md-6">
                     <div *ngIf="currentProduct.mark" class="rating">
@@ -13,7 +13,7 @@
                     <mat-card class="card-offer">
                         <mat-card-header>
                             <mat-card-title>{{currentProduct.name}}</mat-card-title>
-                            <mat-card-subtitle>{{currentProduct.category.name}}</mat-card-subtitle>
+                            <mat-card-subtitle>{{currentProduct.category?.name}}</mat-card-subtitle>
                         </mat-card-header>
                         <mat-divider></mat-divider>
                         <mat-card-content>
@@ -28,7 +28,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 bk-add-to-card">
-                                    <button mat-raised-button color="primary" (click)="addToCart(currentProduct.id)">
+                                    <button mat-raised-button color="primary"
+                                        (click)="addToCart(currentProduct.id, currentProduct.name)">
                                         <mat-icon>add_shopping_cart</mat-icon> Додати в корзину
                                     </button>
                                 </div>
@@ -38,7 +39,7 @@
                             </div>
                             <div class="row adtn-actions">
                                 <div class="col-md-6">
-                                    <button mat-button>
+                                    <button mat-button (click)="addToWish(currentProduct.id, currentProduct.name)">
                                         <mat-icon>favorite</mat-icon> Зберегти
                                     </button>
                                 </div>

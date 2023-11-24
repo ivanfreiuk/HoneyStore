@@ -98,7 +98,7 @@ services.AddTransient<IMapperFactory, MapperFactory>();
 
 #region Add AutoMapper
 
-services.AddAutoMapper(typeof(ProductProfile).Assembly);
+services.AddAutoMapper(typeof(BaseService).Assembly, typeof(Program).Assembly);
 
 #endregion
 

@@ -1,4 +1,6 @@
-﻿using HoneyStore.BusinessLogic.Interfaces;
+﻿using AutoMapper;
+using HoneyStore.Api.ViewModels;
+using HoneyStore.BusinessLogic.Interfaces;
 using HoneyStore.BusinessLogic.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,10 +12,12 @@ namespace HoneyStore.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, IMapper mapper)
         {
             _productService = productService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -84,8 +88,10 @@ namespace HoneyStore.Api.Controllers
                     FileBytes = memoryStream.ToArray()
                 };
                 
-                var product = JsonConvert.DeserializeObject<ProductDto>(jsonProduct);
+                var model = JsonConvert.DeserializeObject<ProductCreationModel>(jsonProduct);
                 //product.ImageUrl = Path.Combine(folderName, fileName);
+
+                var product = _mapper.Map<ProductDto>(model);
 
                 await _productService.AddProductAsync(product, photo);
 

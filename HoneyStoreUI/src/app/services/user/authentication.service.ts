@@ -10,20 +10,23 @@ export class AuthenticationService {
 
   private apiUrl: string = 'https://localhost:7114/api'
   
-  private currentUserSubject: BehaviorSubject<User | null>;
-  public currentUser: Observable<User | null>;
+  private currentUserSubject: BehaviorSubject<User|null>;
+  public currentUser: Observable<User|null>;
 
   constructor(private http: HttpClient) {
-      this.currentUserSubject = new BehaviorSubject<User | null>(JSON.parse(`${localStorage.getItem('currentUser')}`));
+      this.currentUserSubject = new BehaviorSubject<User|null>(JSON.parse(`${localStorage.getItem('currentUser')}`));
       this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User | null {
-      return this.currentUserSubject.value;
+  public get currentUserValue(): User|null {
+      var user = new User();
+      user.id = 1;
+      return user;
+      //return this.currentUserSubject.value;
   }
 
-  login(Email: string, Password: string) {
-      return this.http.post<any>(`${this.apiUrl}/account/login`, { Email, Password })
+  login(email: string, password: string) {
+      return this.http.post<any>(`${this.apiUrl}/account/login`, { email, password })
           .pipe(map(response => {
               // login successful if there's a jwt token in the response
               if (response && response.access_token) {

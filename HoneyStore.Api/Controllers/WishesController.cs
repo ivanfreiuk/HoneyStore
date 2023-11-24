@@ -1,4 +1,6 @@
-﻿using HoneyStore.BusinessLogic.Interfaces;
+﻿using AutoMapper;
+using HoneyStore.Api.ViewModels;
+using HoneyStore.BusinessLogic.Interfaces;
 using HoneyStore.BusinessLogic.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +11,12 @@ namespace HoneyStore.Api.Controllers
     public class WishesController : ControllerBase
     {
         private readonly IWishService _wishService;
+        private readonly IMapper _mapper;
 
-        public WishesController(IWishService wishService)
+        public WishesController(IWishService wishService, IMapper mapper)
         {
             _wishService = wishService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -42,7 +46,7 @@ namespace HoneyStore.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddWish([FromBody] WishDto wish)
+        public async Task<IActionResult> AddWish([FromBody] WishCreationModel model)
         {
             try
             {
@@ -51,6 +55,7 @@ namespace HoneyStore.Api.Controllers
                     return BadRequest("Invalid model object");
                 }
 
+                var wish = _mapper.Map<WishDto>(model);
                 await _wishService.AddWishAsync(wish);
 
                 return Ok();
@@ -61,17 +66,17 @@ namespace HoneyStore.Api.Controllers
             }
         }
         
-        [HttpDelete("{userId}/{bookId}")]
-        public async Task<IActionResult> DeleteCategory(int userId, int bookId)
+        [HttpDelete("product/{productId}/user/{userId}")]
+        public async Task<IActionResult> DeleteWish([FromRoute] int productId, [FromRoute] int userId)
         {
-            var wishFromDb = await _wishService.GetWishAsync(userId, bookId);
+            var wishFromDb = await _wishService.GetWishAsync(userId, productId);
 
             if (wishFromDb == null)
             {
                 return NotFound();
             }
 
-            await _wishService.RemoveWishAsync(userId, bookId);
+            await _wishService.RemoveWishAsync(userId, productId);
             return Ok();
         }
     }

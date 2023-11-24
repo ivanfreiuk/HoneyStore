@@ -2,22 +2,20 @@ import { Product } from './product';
 
 export class CartItem {
     id: number;
+    productId: number;
+    product: Product;
     userId: number | undefined;
     quantity: number;
-    isOrdered: boolean | undefined;
-    createdOn: Date | undefined;
-    productId: number | undefined;
-    product: Product;
-    orderId: number | undefined;
+    createdOn: Date | undefined;    
+    orderId: number | null;
 
-    constructor() {
+    constructor(productId: number = 1, userId: number = 1, quantity: number = 1) {
         this.id = 0;
-        this.userId = 0;   
-        this.quantity = 0;
-        this.isOrdered = false;
-        this.createdOn = new Date();
-        this.productId = 0;
-        this.product = new Product();       
-        this.orderId = 0;
+        this.productId = productId;
+        this.product = new Product();
+        this.userId = userId;   
+        this.quantity = quantity;
+        this.createdOn = new Date();               
+        this.orderId = null;
     }
 }
