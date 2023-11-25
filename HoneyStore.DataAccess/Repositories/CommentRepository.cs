@@ -31,6 +31,7 @@ namespace HoneyStore.DataAccess.Repositories
         public async Task<ICollection<Comment>> GetCommentsByProductIdAsync(int productId)
         {
             return await _context.Comments
+                .Include(c => c.User)
                 .Where(c => c.ProductId == productId)
                 .Select(c => c).ToListAsync();
         }

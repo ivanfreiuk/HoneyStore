@@ -5,6 +5,8 @@ import { Comment } from '../../../models'
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-comment',
@@ -12,7 +14,9 @@ import { MatDividerModule } from '@angular/material/divider';
   imports: [CommonModule,
     MatButtonModule, 
     MatIconModule,
-    MatDividerModule],
+    MatDividerModule,
+    MatChipsModule,
+    MatCardModule],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.css'
 })

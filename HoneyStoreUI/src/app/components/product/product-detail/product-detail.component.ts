@@ -13,12 +13,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
 import { FileHelper } from '../../../helpers';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommentDialogComponent } from '../../comment/comment-dialog/comment-dialog.component';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule,
     CounterComponent,
+    CommentDialogComponent,
     CommentComponent,
     MatCardModule,
     MatIconModule,

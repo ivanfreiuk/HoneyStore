@@ -6,9 +6,7 @@ namespace HoneyStore.DataAccess.Entities
     public class Comment : IIdentifier
     {
         public int Id { get; set; }
-
-        public string Headline { get; set; }
-
+        
         public int Mark { get; set; }
 
         public string Content { get; set; }

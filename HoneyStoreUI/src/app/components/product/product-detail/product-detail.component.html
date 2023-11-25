@@ -63,7 +63,7 @@
                     <mat-tab-group class="tabs">
                         <mat-tab class="tab-content">
                             <ng-template mat-tab-label>
-                                <strong class="tab-name">Опис</strong>
+                                <strong class="tab-name">ОПИС</strong>
                             </ng-template>
                             <div class="product-description">
                                 <span [innerHTML]="currentProduct.description"></span>
@@ -72,10 +72,10 @@
                         <mat-tab class="tab-content">
                             <ng-template mat-tab-label>
                                 <strong class="tab-name" [matBadge]="productComments.length" matBadgeColor="accent"
-                                    matBadgeOverlap="false">Відгуки</strong>
+                                    matBadgeOverlap="false">ВІДГУКИ</strong>
                             </ng-template>
                             <div class="review-action">
-                                <!-- <app-add-comment [productId]="currentProduct?.id" (commentAdded)="onCommentsChanged($event)"></app-add-comment> -->
+                                <app-comment-dialog [productId]="currentProduct.id" (commentAdded)="onCommentsChanged($event)"></app-comment-dialog>
                                 <app-comment [comments]="productComments" (commentDeleted)="onCommentsChanged($event)">
                                 </app-comment>
                             </div>

@@ -89,9 +89,11 @@ namespace HoneyStore.Api.Controllers
                 new CommentDto
                 {
                     Id = 1,
+                    FirstName = "Ivan",
+                    LastName = "Freiuk",
+                    Email = "ivan.freiuk@gmail.com",
                     Content = "good honey!",
                     CreatedOn = DateTime.Now,
-                    Headline = "remove headline",
                     Mark = 3,
                     ProductId = 1,
                     UserId = 1,

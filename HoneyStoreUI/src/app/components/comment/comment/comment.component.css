@@ -1,16 +1,3 @@
-mat-divider {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.clearfix {
-    clear: both;
-}
-
-.float-left {
-    float: left;
-}
-
-.float-right {
-    float: right;
+.comment-list {
+    margin: 1% 0%;
 }

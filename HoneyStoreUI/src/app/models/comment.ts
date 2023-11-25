@@ -1,17 +1,25 @@
 export class Comment {
     id: number;
-    productId: number | undefined; 
+    productId: number; 
     userId: number;
-    headline: string | undefined;
-    createdOn: Date | undefined;
+    firstName: string;
+    lastName: string;
+    email: string;
+    createdOn: Date;
     mark: number;
-    content: string | undefined;
+    content: string;
     userName: string;
 
-    constructor(){
+    constructor(userId: number = 1, productId:  number = 1, content: string = '', mark: number = 0) {
         this.id = 0;
-        this.userId = 0;
-        this.mark = 0;
-        this.userName = ''
+        this.userId = userId;
+        this.firstName = '';
+        this.lastName = '';
+        this.email = '';
+        this.productId = productId;
+        this.mark = mark;
+        this.userName = '';
+        this.content = content;
+        this.createdOn = new Date(Date.now());
     }
 }

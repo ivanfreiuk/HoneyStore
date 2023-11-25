@@ -1,0 +1,40 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2>ВІДГУК</h2>
+        </div>
+      </div>
+      <mat-card class="comment-card">
+        <form [formGroup]="commentForm" *ngIf="commentForm.value">
+          <div class="row">
+            <div class="col-md-2">
+              <p>Ваша оцінка?</p>
+            </div>
+            <div class="col-md-10">
+              <!-- <star-rating [value]="0" checkedcolor="#f70" uncheckedcolor="#ddd" size="30px" readonly="false"
+                (rate)="onRate($event.newValue)">
+              </star-rating> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <p>Ваш відгук *</p>
+            </div>
+            <div class="col-md-10">
+              <mat-form-field appearance="outline">
+                <textarea matInput placeholder="Ваш відгук *" formControlName="content"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="btn-submit offset-md-8 col-md-4">
+              <button (click)="onSave()" mat-raised-button color="primary">
+                <mat-icon>rate_review</mat-icon> Зберегти
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
