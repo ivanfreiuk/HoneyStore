@@ -1,4 +1,6 @@
-﻿using HoneyStore.BusinessLogic.Interfaces;
+﻿using AutoMapper;
+using HoneyStore.Api.ViewModels;
+using HoneyStore.BusinessLogic.Interfaces;
 using HoneyStore.BusinessLogic.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +11,12 @@ namespace HoneyStore.Api.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
+        private readonly IMapper _mapper;
 
-        public CommentsController(ICommentService commentService)
+        public CommentsController(ICommentService commentService, IMapper mapper)
         {
             _commentService = commentService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -42,27 +46,29 @@ namespace HoneyStore.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment([FromBody] CommentDto comment)
+        public async Task<IActionResult> CreateComment([FromBody] CommentCreationModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await _commentService.AddCommentAsync(comment);
-                return Ok();
+                return BadRequest(ModelState);
             }
 
-            return BadRequest(ModelState);
+            var comment = _mapper.Map<CommentDto>(model);
+            await _commentService.AddCommentAsync(comment);
+            return Ok();
+
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateComment([FromBody] CommentDto comment)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await _commentService.AddCommentAsync(comment);
-                return Ok();
+                return BadRequest(ModelState);
             }
-
-            return BadRequest(ModelState);
+            
+            await _commentService.AddCommentAsync(comment);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -84,22 +90,7 @@ namespace HoneyStore.Api.Controllers
         public async Task<IActionResult> GetCommentsByProductId(int id)
         {
             var comments = await _commentService.GetCommentsByProductIdAsync(id);
-            comments = new List<CommentDto>
-            {
-                new CommentDto
-                {
-                    Id = 1,
-                    FirstName = "Ivan",
-                    LastName = "Freiuk",
-                    Email = "ivan.freiuk@gmail.com",
-                    Content = "good honey!",
-                    CreatedOn = DateTime.Now,
-                    Mark = 3,
-                    ProductId = 1,
-                    UserId = 1,
-                    UserName = "Ivan Freiuk"
-                }
-            };
+
             if (comments == null)
             {
                 return NoContent();

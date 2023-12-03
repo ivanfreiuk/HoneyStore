@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @Component({
   selector: 'app-comment-dialog',
@@ -16,8 +17,9 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatCardModule,
     MatIconModule,
-    MatInputModule,   
+    MatInputModule,
     MatFormFieldModule,
+    EditorModule,
     MatButtonModule],
   templateUrl: './comment-dialog.component.html',
   styleUrl: './comment-dialog.component.css'
@@ -38,21 +40,24 @@ export class CommentDialogComponent {
   }
 
   onSave() {
-    
+
     if (this.commentForm.invalid) {
       return;
     }
 
     const commentValue = this.commentForm.value;
     this.comment = new Comment(this.authSvc.currentUserValue?.id, this.productId, commentValue.content, this.rating)
-    
+
     this.commentSvc.post(this.comment).subscribe(() => {
-      this.commentAdded.emit();
-    }
+        this.commentAdded.emit();
+      }
     );
+
+    this.comment = new Comment();
+    this.commentForm = this.createFormGroup(this.comment)
   }
 
-  createFormGroup(comment: Comment) : FormGroup {
+  createFormGroup(comment: Comment): FormGroup {
     return this.formBuilder.group({
       content: [comment.content, [Validators.required]]
     })
