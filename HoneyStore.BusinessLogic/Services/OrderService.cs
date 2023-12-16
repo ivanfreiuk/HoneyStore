@@ -40,6 +40,7 @@ namespace HoneyStore.BusinessLogic.Services
             await _uow.Orders.AddAsync(orderEntity);
 
             await _uow.SaveAsync();
+            order.Id = orderEntity.Id;
         }
 
         public async Task RemoveOrderAsync(int id)
@@ -51,11 +52,11 @@ namespace HoneyStore.BusinessLogic.Services
             await _uow.SaveAsync();
         }
 
-        public async Task UpdateOrderAsync(OrderDto order)
+        public async Task UpdateOrderAsync(int id, OrderDto order)
         {
             var orderEntity = _mapper.Map<OrderDto, Order>(order);
 
-            await _uow.Orders.AddAsync(orderEntity);
+            await _uow.Orders.UpdateAsync(id, orderEntity);
 
             await _uow.SaveAsync();
         }

@@ -52,7 +52,7 @@ export class LoginComponent {
 
     this.authService.login(this.controls['email'].value, this.controls['password'].value)
       .pipe(first()).subscribe(() => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/products']);
       },
       error => {
         this.showNotification('Невдалося ввійти. Пароль або логін введено неправильно.', 'Закрити')

@@ -21,8 +21,9 @@ export class AuthenticationService {
   public get currentUserValue(): User|null {
       var user = new User();
       user.id = 1;
-      return user;
-      //return this.currentUserSubject.value;
+      user.roleName = 'Admin';
+      //return null;
+      return this.currentUserSubject.value;
   }
 
   login(email: string, password: string) {

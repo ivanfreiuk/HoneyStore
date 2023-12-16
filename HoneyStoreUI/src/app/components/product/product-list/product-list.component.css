@@ -31,3 +31,9 @@
         max-width: 90em;
     }
 }
+
+h1 {
+    width:100%;
+    margin: 10% 0;
+    text-align: center;
+}

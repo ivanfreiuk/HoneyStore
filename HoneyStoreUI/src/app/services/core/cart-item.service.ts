@@ -11,9 +11,17 @@ export class CartItemService {
   private apiUrl = `${environment.apiUrl}/api`;
 
   cartItemsValue: CartItem[] = [];
-  totalSum: number = 0;
-
   constructor(private http: HttpClient) { }
+
+  public get totalSumValue(): number {
+    return this.computeSum();
+  }
+
+  private computeSum() : number {
+    var totalSum = 0;
+    this.cartItemsValue.forEach((ci: CartItem) => totalSum += ci.quantity * ci.product.price);
+    return totalSum;
+  }
 
   getAll(): Observable<CartItem[]> {
     return this.http.get<CartItem[]>(`${this.apiUrl}/cartitems`);

@@ -1,3 +1,4 @@
+export { PrivacyPolicyComponent } from './common/privacy-policy/privacy-policy.component';
 export { NavbarComponent } from './common/navbar/navbar.component';
 export { LoginComponent } from './user/login/login.component';
 export { RegisterComponent } from './user/register/register.component';
@@ -7,3 +8,6 @@ export { MainContainerComponent } from './common/main-container/main-container.c
 export { PanelComponent } from './admin/panel/panel.component';
 export { AdminUserListComponent } from './admin/admin-user-list/admin-user-list.component'
 export { AdminProductListComponent } from './admin/admin-product-list/admin-product-list.component'
+export { AboutUsComponent } from './common/about-us/about-us.component'
+export { OrderComponent } from './cart/order/order.component';
+

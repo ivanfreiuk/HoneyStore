@@ -131,6 +131,7 @@ export class ProductDialogComponent implements OnInit {
     this.currentProduct.categoryId = productValue.category
     this.currentProduct.price = productValue.price;
     this.currentProduct.quantity = productValue.quantity;
+    this.currentProduct.weight = productValue.weight;
     this.currentProduct.description = productValue.description;
   }
 
@@ -141,6 +142,7 @@ export class ProductDialogComponent implements OnInit {
       category: [product.categoryId],
       price: [product.price, [Validators.min(0), Validators.max(1000000), Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")]],
       quantity: [product.quantity, [Validators.min(0), Validators.max(100000), Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")]],
+      weight: [product.weight, [Validators.min(0), Validators.max(100000), Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")]],
       description: [product.description],
       commentsEnabled: [product.commentsEnabled]
     });

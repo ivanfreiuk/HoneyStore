@@ -43,6 +43,55 @@ namespace HoneyStore.DataAccess.Context
 
             #endregion
 
+            builder.Entity<Category>()
+                .HasData(
+                    new Category
+                    {
+                        Id = 1,
+                        Name = "Крем-мед"
+                    },
+                    new Category
+                    {
+                        Id = 2,
+                        Name = "Медова косметика"
+                    },
+                    new Category
+                    {
+                        Id = 3,
+                        Name = "Настоянки та Мазі"
+                    },
+                    new Category
+                    {
+                        Id = 4,
+                        Name = "Суміші з медом"
+                    },
+                    new Category
+                    {
+                        Id = 5,
+                        Name = "Шоколад на меду"
+                    },
+                    new Category
+                    {
+                        Id = 6,
+                        Name = "Віск і матеріали для виготовлення свічок"
+                    },
+                    new Category
+                    {
+                        Id = 7,
+                        Name = "Натуральний мед"
+                    },
+                    new Category
+                    {
+                        Id = 8,
+                        Name = "Пилок і Перга"
+                    },
+                    new Category
+                    {
+                        Id = 9,
+                        Name = "Горіхи і сухофрукти в меду"
+                    }
+                );
+
         }
     }
 }

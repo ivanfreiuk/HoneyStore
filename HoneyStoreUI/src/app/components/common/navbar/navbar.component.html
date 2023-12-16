@@ -6,22 +6,19 @@
             <a mat-button routerLink="/home">Головна</a>
           </div>
           <div *ngIf="authSvc.currentUserValue?.roleName==='Admin'" class="nav-item">
-            <a mat-button routerLink="/users">Список користувачів</a>
+            <a mat-button routerLink="/panel/users">Користувачі</a>
           </div>
-          <div class="nav-item">
+          <div *ngIf="authSvc.currentUserValue?.roleName==='Admin'" class="nav-item">
             <a mat-button routerLink="/panel/products">Панель керування</a>
           </div>
           <div class="nav-item">
             <a mat-button routerLink="/products">Продукція</a>
           </div>
-          <div *ngIf="authSvc.currentUserValue?.roleName==='User'" class="nav-item">
+          <div class="nav-item">
             <a mat-button>Контакти</a>
           </div>
-          <div *ngIf="authSvc.currentUserValue?.roleName==='Admin'" class="nav-item">
-            <a mat-button routerLink="/add-product">Додати товар</a>
-          </div>
           <div class="nav-item">
-            <button mat-button>Про нас</button>
+            <a mat-button routerLink="/about-us">Про нас</a>
           </div>
         </div>
       </div>

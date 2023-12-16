@@ -38,15 +38,15 @@
     </div>
   </div>
 </div>
-<mat-toolbar color="primary" style="position: fixed; bottom: 0;">
+<mat-toolbar *ngIf="!hideToolbar" color="primary" style="position: fixed; bottom: 0;" >
   <div class="bootstrap-wrapper">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <button mat-stroked-button>Купити зараз</button>
+          <button mat-stroked-button (click)="regirectToOrder()">Перейти до оформлення</button>
         </div>
         <div class="col-md-6">
-          <span>Сума : <strong> ${{totalSum}} </strong></span>
+          <span>До сплати : <strong> {{cartSvc.totalSumValue}} грн. </strong></span>
         </div>
       </div>
     </div>

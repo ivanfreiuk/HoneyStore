@@ -76,4 +76,8 @@ export class MainContainerComponent {
   search(value: string) {
     this.router.navigate(['/books'], { queryParams: { title: value } })
   }
+
+  onSidebarClosed() {
+    this.sidenav?.close();
+  }
 }

@@ -6,3 +6,4 @@ export { Comment } from './comment';
 export { Category } from './category';
 export { Wish} from './wish';
 export { CartItem } from './cart-item';
+export { Order } from './order';

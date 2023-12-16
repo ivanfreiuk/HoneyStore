@@ -1,6 +1,5 @@
 import { Routes, mapToCanActivate } from '@angular/router';
-import { AuthGuard } from '../app/quards'
-import { AdminProductListComponent, AdminUserListComponent, LoginComponent, PanelComponent, ProductContainerComponent, ProductDetailComponent, RegisterComponent } from './components';
+import { AboutUsComponent, AdminProductListComponent, AdminUserListComponent, LoginComponent, OrderComponent, PanelComponent, PrivacyPolicyComponent, ProductContainerComponent, ProductDetailComponent, RegisterComponent } from './components';
 
 export const routes: Routes = [
     {
@@ -25,6 +24,18 @@ export const routes: Routes = [
         path: 'register',
         component: RegisterComponent
         //canActivate: mapToCanActivate([AuthGuard])
+    },
+    {
+      path: 'order',
+      component: OrderComponent
+    },
+    {
+      path: 'about-us',
+      component: AboutUsComponent
+    },
+    {
+      path: 'privacy-policy',
+      component: PrivacyPolicyComponent
     },
     {
         path: 'panel',

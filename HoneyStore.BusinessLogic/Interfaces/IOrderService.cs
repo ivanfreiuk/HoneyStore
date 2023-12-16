@@ -12,6 +12,6 @@ namespace HoneyStore.BusinessLogic.Interfaces
 
         Task RemoveOrderAsync(int id);
 
-        Task UpdateOrderAsync(OrderDto order);
+        Task UpdateOrderAsync(int id, OrderDto order);
     }
 }

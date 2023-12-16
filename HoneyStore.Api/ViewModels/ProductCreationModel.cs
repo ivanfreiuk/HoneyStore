@@ -18,6 +18,8 @@ namespace HoneyStore.Api.ViewModels
 
         public int Quantity { get; set; }
 
+        public int Weight { get; set; }
+
         public bool CommentsEnabled { get; set; }
 
         public int ProducerId { get; set; }

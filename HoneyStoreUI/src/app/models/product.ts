@@ -11,6 +11,7 @@ export class Product {
     description: string | undefined;
     price: number;
     quantity: number;
+    weight: number;
     commentsEnabled: boolean | undefined;
     producer: Producer;
     productPhotoId: number;
@@ -25,7 +26,8 @@ export class Product {
         this.mark = 0;
         this.description = '';
         this.price = 10;
-        this.quantity = 1;       
+        this.quantity = 1;
+        this.weight = 0;       
         this.commentsEnabled = true;
         this.productPhotoId = 0;
         this.productPhoto = new ProductPhoto();

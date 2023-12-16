@@ -1,3 +1,4 @@
+export { OrderService } from "./core/order.service";
 export { AuthenticationService } from "./user/authentication.service";
 export { UserService } from "./user/user.service";
 export { CartItemService } from './core/cart-item.service';

@@ -1,0 +1,25 @@
+export class Order {
+    id: number;
+    userId: number | undefined;    
+    firstName: string | undefined;
+    lastName: string | undefined;
+    phoneNumber: string | undefined;
+    email: string | undefined;
+    address: string | undefined;
+    details: string | undefined;
+    deliveryMethod: string | undefined;
+    paymentMethod: string | undefined;
+    cartItemIds: number[]
+    createdOn: Date | undefined;
+
+    constructor(userId: number = 1) {
+        this.id = 0;
+        this.firstName = '';        
+        this.lastName = '';
+        this.phoneNumber = '';
+        this.email = '';
+        this.userId = userId;
+        this.cartItemIds = []
+        this.createdOn = new Date(Date.now());
+    }
+}

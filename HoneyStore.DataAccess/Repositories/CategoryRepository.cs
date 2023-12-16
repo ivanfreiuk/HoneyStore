@@ -12,6 +12,13 @@ namespace HoneyStore.DataAccess.Repositories
 
         }
 
+        public override async Task<ICollection<Category>> GetAllAsync()
+        {
+            return await _context.Categories
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+        }
+
         public override async Task UpdateAsync(int id, Category category)
         {
             var categoryFromDb = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);

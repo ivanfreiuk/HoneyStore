@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,23 +25,28 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  totalSum: number = 0;
-
+  @Input() hideToolbar: boolean = false;
+  @Output() cartClosed = new EventEmitter();
+  
   constructor(private authSvc: AuthenticationService,
     public cartSvc: CartItemService, 
     public fileHelper: FileHelper,
-    private router: Router) {
+    private router: Router) {      
   }
 
   showDetail(productId: number) {
     this.router.navigate([`/detail/${productId}`]);
   }
 
+  regirectToOrder() {
+    this.router.navigate(['/order']);
+    this.cartClosed.emit();
+  }
+
   onValueChange(value: number, item: CartItem) {
     item.quantity = value;
 
     this.cartSvc.update(item).subscribe();
-    this.computeSum();
   }
 
   deleteItem(itemId: number) {
@@ -49,12 +54,7 @@ export class CartComponent {
       this.cartSvc.getItemsByUserId(this.authSvc.currentUserValue?.id)
       .subscribe(data => {
         this.cartSvc.cartItemsValue = data;
-        this.computeSum();
       });
     });
-  }
-
-  computeSum() {
-    this.cartSvc.cartItemsValue.forEach((ci: CartItem) => this.totalSum += ci.quantity * ci.product.price);
   }
 }

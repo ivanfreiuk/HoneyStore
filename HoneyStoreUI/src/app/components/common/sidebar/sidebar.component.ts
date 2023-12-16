@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CartComponent } from '../../cart/cart/cart.component';
@@ -14,7 +14,12 @@ import { WishComponent } from '../../wish/wish/wish.component';
 })
 export class SidebarComponent {
   @Input() activeTab: TabName = TabName.Cart;
+  @Output() sidebarClosed = new EventEmitter();
 
   cartTab: TabName = TabName.Cart;
   wishTab: TabName = TabName.Wish;
+
+  onCartClosed() {
+    this.sidebarClosed.emit()
+  }
 }
