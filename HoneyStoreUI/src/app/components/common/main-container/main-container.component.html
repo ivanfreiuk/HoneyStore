@@ -32,13 +32,13 @@
                     </div>
                     <div class="col-md-4 storebar-tools">
                         <div class="tool-item">
-                            <button mat-button (click)="open(cartTab)">
+                            <button mat-button (click)="open(cartTab)" *ngIf="authSvc.currentUserValue">
                                 <mat-icon>shopping_cart</mat-icon>
                                 <span>Корзина</span>
                             </button>
                         </div>
                         <div class="tool-item">
-                            <button mat-button (click)="open(wishTab)">
+                            <button mat-button (click)="open(wishTab)" *ngIf="authSvc.currentUserValue">
                                 <mat-icon>favorite_border</mat-icon>
                                 <span>Збережені</span>
                             </button>

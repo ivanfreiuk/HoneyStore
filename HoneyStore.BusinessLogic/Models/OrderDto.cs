@@ -1,6 +1,4 @@
-﻿using HoneyStore.DataAccess.Entities;
-
-namespace HoneyStore.BusinessLogic.Models
+﻿namespace HoneyStore.BusinessLogic.Models
 {
     public class OrderDto
     {
@@ -26,7 +24,9 @@ namespace HoneyStore.BusinessLogic.Models
 
         public DateTime CreatedOn { get; set; }
 
-        public OrderStatus Status { get; set; }
+        public string Status { get; set; }
+
+        public IEnumerable<int> ProductIds { get; set; }
 
         public ICollection<CartItemDto> CartItems { get; set; }
     }

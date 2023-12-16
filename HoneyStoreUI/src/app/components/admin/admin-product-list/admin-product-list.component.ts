@@ -32,7 +32,6 @@ export class AdminProductListComponent implements OnInit, OnChanges {
     'id',
     'name',
     'price',
-    'mark',
     'editOption',
     'deleteOption',
     'detailOption',
@@ -94,7 +93,6 @@ export class AdminProductListComponent implements OnInit, OnChanges {
       });
 
       this.refreshDataSource();
-      //this.dataSource.data = this.dataSource.data.filter(b => b.id != product.id);
     });
   }
 

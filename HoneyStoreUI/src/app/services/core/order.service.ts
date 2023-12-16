@@ -20,6 +20,10 @@ export class OrderService {
     return this.http.get<Order>(`${this.apiUrl}/orders/` + id);
   }
 
+  getOrdersByUserId(userId: number | undefined): Observable<Order[]> {
+    return this.http.get<Order[]>(`${this.apiUrl}/orders/user/${userId}`);
+  }
+
   post(order: Order) {
     return this.http.post(`${this.apiUrl}/orders`, order);
   }

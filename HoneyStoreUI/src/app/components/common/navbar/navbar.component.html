@@ -2,17 +2,20 @@
     <mat-toolbar>
       <div class="container">
         <div class="navbar-items">
-          <div class="nav-item">
-            <a mat-button routerLink="/home">Головна</a>
-          </div>
-          <div *ngIf="authSvc.currentUserValue?.roleName==='Admin'" class="nav-item">
-            <a mat-button routerLink="/panel/users">Користувачі</a>
-          </div>
-          <div *ngIf="authSvc.currentUserValue?.roleName==='Admin'" class="nav-item">
+          <div *ngIf="authSvc.currentUserValue?.roleName==='Admin' || authSvc.currentUserValue?.roleName==='Manager'" class="nav-item">
             <a mat-button routerLink="/panel/products">Панель керування</a>
           </div>
+          <div *ngIf="authSvc.currentUserValue?.roleName==='Admin' || authSvc.currentUserValue?.roleName==='Manager'" class="nav-item">
+            <a mat-button routerLink="/panel/orders">Замовлення</a>
+          </div>  
+          <div *ngIf="authSvc.currentUserValue?.roleName==='Admin' || authSvc.currentUserValue?.roleName==='Manager'" class="nav-item">
+            <a mat-button routerLink="/panel/users">Користувачі</a>
+          </div>          
           <div class="nav-item">
             <a mat-button routerLink="/products">Продукція</a>
+          </div>
+          <div *ngIf="authSvc.currentUserValue" class="nav-item">
+            <a mat-button routerLink="/orders">Мої замовлення</a>
           </div>
           <div class="nav-item">
             <a mat-button>Контакти</a>

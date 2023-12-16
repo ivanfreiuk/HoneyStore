@@ -9,7 +9,9 @@ export class Order {
     details: string | undefined;
     deliveryMethod: string | undefined;
     paymentMethod: string | undefined;
-    cartItemIds: number[]
+    cartItemIds: number[];
+    productIds: number[];
+    status: string;
     createdOn: Date | undefined;
 
     constructor(userId: number = 1) {
@@ -19,7 +21,9 @@ export class Order {
         this.phoneNumber = '';
         this.email = '';
         this.userId = userId;
-        this.cartItemIds = []
+        this.cartItemIds = [];
+        this.productIds = [];
+        this.status = '';
         this.createdOn = new Date(Date.now());
     }
 }

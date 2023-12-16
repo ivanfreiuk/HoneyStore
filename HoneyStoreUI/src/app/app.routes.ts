@@ -1,5 +1,5 @@
 import { Routes, mapToCanActivate } from '@angular/router';
-import { AboutUsComponent, AdminProductListComponent, AdminUserListComponent, LoginComponent, OrderComponent, PanelComponent, PrivacyPolicyComponent, ProductContainerComponent, ProductDetailComponent, RegisterComponent } from './components';
+import { AboutUsComponent, AdminOrderListComponent, AdminProductListComponent, AdminUserListComponent, LoginComponent, OrderComponent, OrderListComponent, PanelComponent, PrivacyPolicyComponent, ProductContainerComponent, ProductDetailComponent, RegisterComponent } from './components';
 
 export const routes: Routes = [
     {
@@ -30,6 +30,10 @@ export const routes: Routes = [
       component: OrderComponent
     },
     {
+      path: 'orders',
+      component: OrderListComponent
+    },
+    {
       path: 'about-us',
       component: AboutUsComponent
     },
@@ -46,20 +50,15 @@ export const routes: Routes = [
              component: AdminProductListComponent
            },
            {
+            path: 'orders',
+            component: AdminOrderListComponent
+           },
+           {
             path: 'users',
             component: AdminUserListComponent
-          }
-        //   {
-        //     path: 'edit-book',
-        //     component: EditBookComponent
-        //   },
-        //   {
-        //     path: 'product-list',
-        //     component: BooksMainPageComponent
-        //   },
-    
+           }    
         ]
       },
   // otherwise redirect to home
- // { path: '**', redirectTo: '/home', pathMatch: 'full' }
+   { path: '**', redirectTo: '/products', pathMatch: 'full' }
 ];

@@ -59,18 +59,20 @@ export class OrderComponent {
     this.orderSvc.post(this.currentOrder)
       .subscribe(data => {
         this.showNotification('Ваше замовлення успішно створено.', 'Закрити');
-        this.router.navigate(['/products'])
+        this.router.navigate(['/orders'])
+        this.cartItemSvc.cartItemsValue = []
       },
       error => {
-        console.log(error)
         this.showNotification('Помилка! Не вдалося створити замовлення.', 'Закрити')
       });
+    
   }
   
   get controls() { return this.orderForm.controls; }
 
   populateOrderData() {
     const orderValue = this.orderForm.value;
+    this.currentOrder.userId = this.authSvc.currentUserValue?.id;
     this.currentOrder.firstName = orderValue.firstName;
     this.currentOrder.lastName = orderValue.lastName;
     this.currentOrder.phoneNumber = orderValue.phoneNumber;
@@ -84,8 +86,8 @@ export class OrderComponent {
 
   createFormGroup(order: Order) {
     return this.formBuilder.group({
-      firstName: [this.authSvc.currentUserValue?.firstName],
-      lastName: [this.authSvc.currentUserValue?.lastName],
+      firstName: [this.authSvc.currentUserValue?.firstName, [Validators.required]],
+      lastName: [this.authSvc.currentUserValue?.lastName, [Validators.required]],
       phoneNumber: [order.phoneNumber],
       email: [this.authSvc.currentUserValue?.email, [Validators.required, Validators.email]],
       address: [order.address, [Validators.required]],

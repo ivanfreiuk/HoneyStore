@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainContainerComponent, PanelComponent, ProductContainerComponent, AdminUserListComponent, AboutUsComponent, OrderComponent, PrivacyPolicyComponent } from './components';
+import { MainContainerComponent, PanelComponent, ProductContainerComponent, AdminUserListComponent, AboutUsComponent, OrderComponent, PrivacyPolicyComponent, AdminOrderListComponent, OrderListComponent } from './components';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,8 @@ import { MainContainerComponent, PanelComponent, ProductContainerComponent, Admi
     AboutUsComponent,
     PrivacyPolicyComponent,
     OrderComponent,
+    AdminOrderListComponent,
+    OrderListComponent,
     AdminUserListComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

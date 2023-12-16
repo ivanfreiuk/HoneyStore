@@ -22,10 +22,15 @@ export class PanelComponent {
       index: 0
     },
     {
-      label: 'Користувачі',
-      path: './users',
+      label: 'Замовлення',
+      path: './orders',
       index: 1
     },
+    {
+      label: 'Користувачі',
+      path: './users',
+      index: 2
+    }
   ];
   activeLinkIndex: number = 0;
 

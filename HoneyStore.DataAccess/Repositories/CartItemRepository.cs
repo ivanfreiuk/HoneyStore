@@ -25,7 +25,7 @@ namespace HoneyStore.DataAccess.Repositories
             return await _context.CartItems
                 .Include(ci => ci.Product)
                 .ThenInclude(p => p.ProductPhoto)
-                .Where(ci => ci.UserId == userId)
+                .Where(ci => ci.UserId == userId && ci.OrderId == null)
                 .ToListAsync();
         }
 
